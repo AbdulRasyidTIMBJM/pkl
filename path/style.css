@@ -1,0 +1,57 @@
+   .custom-toolbar {
+       margin-bottom: 10px;
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+   }
+
+   .row.mb-2.align-items-center {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+   }
+
+   .row.mb-2 .form-control {
+       width: auto;
+   }
+
+   .btn-success {
+       white-space: nowrap;
+   }
+
+   .dataTables_paginate {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+   }
+
+   .small-text {
+       font-size: 14px;
+   }
+
+   th.sorting:after {
+       content: " ▾";
+       /* Panah bawah kecil untuk kolom yang dapat diurutkan */
+   }
+
+   th.sorting_asc:after {
+       content: " ▴";
+       /* Panah atas kecil untuk kolom yang diurutkan secara ascending */
+   }
+
+   th.sorting_desc:after {
+       content: " ▾";
+       /* Panah bawah kecil untuk kolom yang diurutkan secara descending */
+   }
+
+   /* Custom DataTables style */
+   table.dataTable thead th.sort:after,
+   table.dataTable thead th.sort_asc:after,
+   table.dataTable thead th.sort_desc:after {
+       color: black !important;
+       /* Ubah warna panah */
+       background-color: white;
+       /* Latar belakang putih */
+       border: 1px solid black;
+       /* Tambahkan border */
+   }
