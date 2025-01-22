@@ -21,7 +21,7 @@ class BarangMasuk_model extends CI_Model
     {
         $this->db->select('barang_masuk.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
         $this->db->from('barang_masuk');
-        $this->db->join('alat_medis', 'alat_medis.id_alat = barang_masuk.id_alat'); 
+        $this->db->join('alat_medis', 'alat_medis.id_alat = barang_masuk.id_alat');
         $this->db->join('users', 'users.id = barang_masuk.pengguna_id');
         $this->db->join('unit', 'unit.id_unit = barang_masuk.id_unit');
         $query = $this->db->get();
@@ -52,7 +52,7 @@ class BarangMasuk_model extends CI_Model
     {
         $this->db->select('barang_masuk.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
         $this->db->from('barang_masuk');
-        $this->db->join('alat_medis', 'alat_medis.id_alat = barang_masuk.id_alat'); 
+        $this->db->join('alat_medis', 'alat_medis.id_alat = barang_masuk.id_alat');
         $this->db->join('users', 'users.id = barang_masuk.pengguna_id');
         $this->db->join('unit', 'unit.id_unit = barang_masuk.id_unit');
 
@@ -77,10 +77,10 @@ class BarangMasuk_model extends CI_Model
         return $this->db->delete('barang_masuk', ['id_barang_masuk' => $id]);
     }
     public function get_merk($id_alat)
-{
-    $this->db->where('id_alat', $id_alat);
-    $query = $this->db->get('alat_medis');
-    $row = $query->row();
-    return $row->merk;
-}
+    {
+        $this->db->where('id_alat', $id_alat);
+        $query = $this->db->get('alat_medis');
+        $row = $query->row();
+        return $row->merk;
+    }
 }

@@ -23,18 +23,18 @@
                             <select name="id_alat" id="id_alat" class="form-control" required>
                                 <option value="">Pilih Nama Alat</option>
                                 <?php foreach ($alat_medis as $am) : ?>
-                                    <option value="<?php echo $am->id_alat; ?>"><?php echo $am->nama_alat; ?></option>
+                                    <option value="<?php echo $am->id_alat; ?>"><?php echo $am->nama_alat . ' - ' . $am->merk; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="merk">Merk:</label>
+                        <div class="form-group" style="display: none;">
+                            <label for="merk">merk:</label>
                             <input type="text" name="merk" id="merk" class="form-control" readonly>
                         </div>
                         <input type="hidden" name="pengguna_id" value="<?= $this->session->userdata('id') ?>">
                         <div class="form-group">
                             <label for="tanggal_masuk">Tanggal Masuk:</label>
-                            <input type="date" name="tanggal_masuk" class="form-control" required>
+                            <input type="date" name="tanggal_masuk" class="form-control" value="<?= date('Y-m-d') ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="jumlah_masuk">Jumlah Masuk:</label>

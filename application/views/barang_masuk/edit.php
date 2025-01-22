@@ -18,13 +18,13 @@
                             </select>
                             <?php echo form_error('id_alat'); ?>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display: none;">
                             <label for="merk">merk:</label>
                             <input type="text" name="merk" id="merk" class="form-control" readonly>
                         </div>
                         <div class="form-group">
                             <label for="tanggal_masuk">Tanggal Masuk:</label>
-                            <input type="date" name="tanggal_masuk" id="tanggal_masuk" class="form-control" value="<?php echo $barang_masuk->tanggal_masuk; ?>" required>
+                            <input type="date" name="tanggal_masuk" id="tanggal_masuk" class="form-control" value="<?php echo date('Y-m-d'); ?>" required>
                             <?php echo form_error('tanggal_masuk'); ?>
                         </div>
                         <div class="form-group">

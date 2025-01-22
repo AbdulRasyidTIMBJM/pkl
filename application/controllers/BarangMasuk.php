@@ -134,9 +134,9 @@ class BarangMasuk extends MY_Controller
         redirect('BarangMasuk');
     }
     public function get_merk()
-{
-    $id_alat = $this->input->post('id_alat');
-    $merk = $this->BarangMasuk_model->get_merk($id_alat);
-    echo $merk;
-}
+    {
+        $id_alat = $this->input->post('id_alat');
+        $merk = $this->BarangMasuk_model->get_merk($id_alat);
+        echo $merk;
+    }
 }

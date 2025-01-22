@@ -20,7 +20,7 @@ class BarangKeluar_model extends CI_Model
 
     public function get_barang_keluar_with_alat()
     {
-        $this->db->select('barang_keluar.*, alat_medis.nama_alat, users.nama, unit.nama_unit');
+        $this->db->select('barang_keluar.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
         $this->db->from('barang_keluar');
         $this->db->join('alat_medis', 'alat_medis.id_alat = barang_keluar.id_alat');
         $this->db->join('users', 'users.id = barang_keluar.pengguna_id');
@@ -35,7 +35,7 @@ class BarangKeluar_model extends CI_Model
     }
 
     public function get_barang_keluar_with_alat_by_date($tanggal_awal, $tanggal_akhir) {
-        $this->db->select('barang_keluar.*, alat_medis.nama_alat, users.nama, unit.nama_unit');
+        $this->db->select('barang_keluar.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
         $this->db->from('barang_keluar');
         $this->db->join('alat_medis', 'alat_medis.id_alat = barang_keluar.id_alat');
         $this->db->join('users', 'users.id = barang_keluar.pengguna_id');
@@ -51,14 +51,6 @@ class BarangKeluar_model extends CI_Model
         return $query->result();
     }
     
-    public function get_enum_values($table, $column)
-    {
-        $query = $this->db->query("SHOW COLUMNS FROM $table LIKE '$column'");
-        $row = $query->row();
-        $enum = $row->Type;
-        preg_match_all("/'([^']+)'/", $enum, $matches);
-        return $matches[1];
-    }
 
     public function get_all_unit()
     {
@@ -80,5 +72,12 @@ class BarangKeluar_model extends CI_Model
     public function delete_barang_keluar($id)
     {
         return $this->db->delete('barang_keluar', ['id_barang_keluar' => $id]);
+    }
+    public function get_merk($id_alat)
+    {
+        $this->db->where('id_alat', $id_alat);
+        $query = $this->db->get('alat_medis');
+        $row = $query->row();
+        return $row->merk;
     }
 }

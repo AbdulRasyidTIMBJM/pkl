@@ -85,6 +85,7 @@
         <tr>
                     <th>NO</th>
                     <th>Nama Alat</th>
+                    <th>Merk</th>
                     <th>Operator</th>
                     <th>Tanggal Keluar</th>
                     <th>Jumlah Keluar</th>
@@ -97,6 +98,7 @@
                     <tr>
                         <td><?php echo $no++; ?></td>
                         <td><?php echo $bk->nama_alat; ?></td>
+                        <td><?php echo $bk->merk; ?></td>
                         <td><?php echo $bk->nama; ?></td>
                         <td><?php echo $bk->tanggal_keluar; ?></td>
                         <td><?php echo $bk->jumlah_keluar; ?></td>

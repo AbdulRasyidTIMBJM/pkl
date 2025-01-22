@@ -22,6 +22,7 @@
                 <tr>
                     <th>NO</th>
                     <th>Nama Alat</th>
+                    <th>Merk</th>
                     <th>Operator</th>
                     <th>Tanggal Keluar</th>
                     <th>Jumlah Keluar</th>
@@ -35,6 +36,7 @@
                     <tr>
                         <td><?php echo $no++; ?></td>
                         <td><?php echo $bk->nama_alat; ?></td>
+                        <td><?php echo $bk->merk;?></td>
                         <td><?php echo $bk->nama; ?></td>
                         <td><?php echo $bk->tanggal_keluar; ?></td>
                         <td><?php echo $bk->jumlah_keluar; ?></td>
@@ -101,14 +103,14 @@
             "info": true,
             "columnDefs": [{
                 "orderable": false,
-                "targets": 6
+                "targets": 7
             }],
             "dom": '<"row"<"col-md-4"l><"col-md-4 text-center"B><"col-md-4 text-right"f>>rtip',
             "buttons": [{
                     extend: 'pdf',
                     title: 'Data Barang Keluar',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
+                        columns: [0, 1, 2, 3, 4, 5, 6]
                     },
                     className: 'btn btn-sm btn-success mr-2 mt-2'
                 },
@@ -116,7 +118,7 @@
                     extend: 'excel',
                     title: 'Data Barang Keluar',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
+                        columns: [0, 1, 2, 3, 4, 5, 6]
                     },
                     className: 'btn btn-sm btn-success mr-2 mt-2'
                 },
@@ -124,7 +126,7 @@
                     extend: 'print',
                     title: 'Data Barang Keluar',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
+                        columns: [0, 1, 2, 3, 4, 5, 6]
                     },
                     action: function(e, dt, button, config) {
                         // Ganti URL dengan URL halaman print Anda

@@ -88,6 +88,7 @@
             <tr>
                 <th>NO</th>
                 <th>Nama Alat</th>
+                <th>Merk</th>
                 <th>Operator</th>
                 <th>Tanggal masuk</th>
                 <th>Jumlah masuk</th>
@@ -101,6 +102,7 @@
                 <tr>
                     <td><?php echo $no++; ?></td>
                     <td><?php echo $bm->nama_alat; ?></td>
+                    <td><?php echo $bm->merk; ?></td>
                     <td><?php echo $bm->nama; ?></td>
                     <td><?php echo $bm->tanggal_masuk; ?></td>
                     <td><?php echo $bm->jumlah_masuk; ?></td>
