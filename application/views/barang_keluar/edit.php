@@ -6,6 +6,17 @@
                     Edit Barang Keluar
                 </div>
                 <div class="card-body">
+                <?php if ($this->session->flashdata('success')) { ?>
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h6><i class="icon fas fa-check"></i> <?= $this->session->flashdata('success') ?> </h6>
+                        </div>
+                    <?php } elseif ($this->session->flashdata('error')) { ?>
+                        <div class="alert alert-warning alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h6><i class="icon fas fa-exclamation-triangle"></i> <?= $this->session->flashdata('error') ?> </h6>
+                        </div>
+                    <?php } ?>
                     <form action="<?php echo site_url('BarangKeluar/update/' . $barang_keluar->id_barang_keluar); ?>" method="post">
                         <input type="hidden" name="id_barang_keluar" value="<?= $barang_keluar->id_barang_keluar ?>">
                         <div class="form-group">

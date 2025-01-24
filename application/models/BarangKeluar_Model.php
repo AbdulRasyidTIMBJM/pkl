@@ -34,23 +34,24 @@ class BarangKeluar_model extends CI_Model
         return $this->db->get('alat_medis')->result();
     }
 
-    public function get_barang_keluar_with_alat_by_date($tanggal_awal, $tanggal_akhir) {
+    public function get_barang_keluar_with_alat_by_date($tanggal_awal, $tanggal_akhir)
+    {
         $this->db->select('barang_keluar.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
         $this->db->from('barang_keluar');
         $this->db->join('alat_medis', 'alat_medis.id_alat = barang_keluar.id_alat');
         $this->db->join('users', 'users.id = barang_keluar.pengguna_id');
         $this->db->join('unit', 'unit.id_unit = barang_keluar.id_unit');
-        
+
         // Tambahkan kondisi untuk rentang tanggal
         if ($tanggal_awal && $tanggal_akhir) {
             $this->db->where('tanggal_keluar >=', $tanggal_awal);
             $this->db->where('tanggal_keluar <=', $tanggal_akhir);
         }
-    
+
         $query = $this->db->get();
         return $query->result();
     }
-    
+
 
     public function get_all_unit()
     {
@@ -79,5 +80,20 @@ class BarangKeluar_model extends CI_Model
         $query = $this->db->get('alat_medis');
         $row = $query->row();
         return $row->merk;
+    }
+    public function update_jumlah_alat($id_alat, $jumlah)
+    {
+        $this->db->set('jumlah', 'jumlah + ' . (int)$jumlah, FALSE);
+        $this->db->where('id_alat', $id_alat);
+        $this->db->update('alat_medis');
+    }
+    public function get_jumlah_tersedia($id_alat)
+    {
+        $this->db->select('jumlah');
+        $this->db->from('alat_medis');
+        $this->db->where('id_alat', $id_alat);
+        $query = $this->db->get();
+        $row = $query->row();
+        return $row ? $row->jumlah : 0; // Mengembalikan 0 jika tidak ada
     }
 }

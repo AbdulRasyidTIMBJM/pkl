@@ -52,20 +52,36 @@ class BarangKeluar extends MY_Controller
         $this->form_validation->set_rules('jumlah_keluar', 'Jumlah keluar', 'required');
         $this->form_validation->set_rules('id_unit', 'Nama unit', 'required');
 
-
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', validation_errors());
-            redirect('Alat/create');
+            redirect('BarangKeluar/create');
         } else {
+            $id_alat = $this->input->post('id_alat');
+            $jumlah_keluar = $this->input->post('jumlah_keluar');
+
+            // Cek jumlah alat yang tersedia
+            $jumlah_tersedia = $this->BarangKeluar_model->get_jumlah_tersedia($id_alat);
+
+            if ($jumlah_keluar > $jumlah_tersedia) {
+                $this->session->set_flashdata('error', 'Jumlah keluar melebihi jumlah yang tersedia');
+                redirect('BarangKeluar/create');
+            }
+
             $data = [
-                'id_alat' => $this->input->post('id_alat'),
+                'id_alat' => $id_alat,
                 'tanggal_keluar' => $this->input->post('tanggal_keluar'),
-                'jumlah_keluar' => $this->input->post('jumlah_keluar'),
-                'pengguna_id' => $this->session->userdata('id'), // Ambil user_id dari session secara otomatis
+                'jumlah_keluar' => $jumlah_keluar,
+                'pengguna_id' => $this->session->userdata('id'),
                 'id_unit' => $this->input->post('id_unit'),
-                'id_merk' => $this->input->post('id_alat'),
+                'id_merk' => $id_alat,
             ];
+
+            // Simpan data barang keluar
             $this->BarangKeluar_model->insert_barang_keluar($data);
+
+            // Update jumlah alat di tabel alat_medis
+            $this->BarangKeluar_model->update_jumlah_alat($id_alat, -$jumlah_keluar); // Kurangi jumlah alat
+
             $this->session->set_flashdata('success', 'Data berhasil disimpan');
             redirect('BarangKeluar');
         }
@@ -75,21 +91,41 @@ class BarangKeluar extends MY_Controller
     {
         $this->form_validation->set_rules('id_alat', 'Nama Alat', 'required');
         $this->form_validation->set_rules('tanggal_keluar', 'Tanggal keluar', 'required');
-        $this->form_validation->set_rules('jumlah_keluar', 'Jumlah keluar ', 'required');
+        $this->form_validation->set_rules('jumlah_keluar', 'Jumlah keluar', 'required');
         $this->form_validation->set_rules('id_unit', 'Nama unit', 'required');
-
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', validation_errors());
-            redirect('Alat/edit');
+            redirect('BarangKeluar/edit/' . $id_barang_keluar);
         } else {
+            // Ambil data barang keluar yang ada
+            $barang_keluar = $this->BarangKeluar_model->select_by_id('barang_keluar', $id_barang_keluar);
+            $jumlah_sebelumnya = $barang_keluar->jumlah_keluar; // Ambil jumlah sebelumnya
+
+            $id_alat = $this->input->post('id_alat');
+            $jumlah_keluar = $this->input->post('jumlah_keluar');
+
+            // Cek jumlah alat yang tersedia
+            $jumlah_tersedia = $this->BarangKeluar_model->get_jumlah_tersedia($id_alat);
+
+            // Hitung selisih
+            $selisih = $jumlah_keluar - $jumlah_sebelumnya;
+
+            if ($selisih > $jumlah_tersedia) {
+                $this->session->set_flashdata('error', 'Jumlah keluar melebihi jumlah yang tersedia');
+                redirect('BarangKeluar/edit/' . $id_barang_keluar);
+            }
+
             $data = array(
-                'id_alat' => $this->input->post('id_alat'),
+                'id_alat' => $id_alat,
                 'tanggal_keluar' => $this->input->post('tanggal_keluar'),
-                'jumlah_keluar' => $this->input->post('jumlah_keluar'),
+                'jumlah_keluar' => $jumlah_keluar,
                 'id_unit' => $this->input->post('id_unit'),
                 'pengguna_id' => $this->session->userdata('id')
             );
+
+            // Update jumlah alat di tabel alat_medis
+            $this->BarangKeluar_model->update_jumlah_alat($id_alat, -$selisih); // Kurangi jumlah alat
 
             $this->BarangKeluar_model->update($id_barang_keluar, $data);
             $this->session->set_flashdata('success', 'Data berhasil diupdate');
@@ -118,9 +154,18 @@ class BarangKeluar extends MY_Controller
         $this->load->view('layout/footer');
     }
 
-    public function delete($id)
+    public function delete($id_barang_keluar)
     {
-        $this->BarangKeluar_model->delete_barang_keluar($id);
+        // Ambil data barang keluar yang akan dihapus
+        $barang_keluar = $this->BarangKeluar_model->select_by_id('barang_keluar', $id_barang_keluar);
+        $jumlah_keluar = $barang_keluar->jumlah_keluar; // Ambil jumlah yang dikeluarkan
+    
+        // Hapus data barang keluar
+        $this->BarangKeluar_model->delete_barang_keluar($id_barang_keluar);
+    
+        // Update jumlah alat di tabel alat_medis
+        $this->BarangKeluar_model->update_jumlah_alat($barang_keluar->id_alat, $jumlah_keluar); // Tambah kembali jumlah alat
+    
         $this->session->set_flashdata('delete', 'Data berhasil dihapus');
         redirect('BarangKeluar');
     }

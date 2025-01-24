@@ -92,6 +92,10 @@ class BarangMasuk extends MY_Controller
             $this->session->set_flashdata('error', validation_errors());
             redirect('BarangMasuk/edit/' . $id_barang_masuk);
         } else {
+            // Ambil data barang masuk yang ada
+            $barang_masuk = $this->BarangMasuk_model->select_by_id('barang_masuk', $id_barang_masuk);
+            $jumlah_sebelumnya = $barang_masuk->jumlah_masuk; // Ambil jumlah sebelumnya
+
             $data = array(
                 'id_alat' => $this->input->post('id_alat'),
                 'tanggal_masuk' => $this->input->post('tanggal_masuk'),
@@ -100,6 +104,14 @@ class BarangMasuk extends MY_Controller
                 'id_merk' => $this->input->post('id_alat'),
                 'pengguna_id' => $this->session->userdata('id'),
             );
+
+            // Update jumlah alat di tabel alat_medis
+            $jumlah_masuk = $this->input->post('jumlah_masuk');
+            $id_alat = $this->input->post('id_alat');
+
+            // Hitung selisih dan update jumlah alat
+            $selisih = $jumlah_masuk - $jumlah_sebelumnya;
+            $this->BarangMasuk_model->update_jumlah_alat($id_alat, $selisih);
 
             $this->BarangMasuk_model->update($id_barang_masuk, $data);
             $this->session->set_flashdata('success', 'Data Berhasil Diupdate');
@@ -129,7 +141,17 @@ class BarangMasuk extends MY_Controller
     }
     public function delete($id)
     {
+        // Ambil data barang masuk yang akan dihapus
+        $barang_masuk = $this->BarangMasuk_model->select_by_id('barang_masuk', $id);
+        $jumlah_masuk = $barang_masuk->jumlah_masuk; // Ambil jumlah yang akan dihapus
+        $id_alat = $barang_masuk->id_alat; // Ambil id_alat yang terkait
+
+        // Hapus data barang masuk
         $this->BarangMasuk_model->delete_barang_masuk($id);
+
+        // Update jumlah alat di tabel alat_medis
+        $this->BarangMasuk_model->update_jumlah_alat($id_alat, -$jumlah_masuk); // Kurangi jumlah alat
+
         $this->session->set_flashdata('delete', 'Data Berhasil Dihapus');
         redirect('BarangMasuk');
     }

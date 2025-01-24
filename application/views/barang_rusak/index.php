@@ -24,6 +24,7 @@
                     <th>Nama Alat</th>
                     <th>Merk</th>
                     <th>Operator</th>
+                    <th>Unit</th>
                     <th>Tanggal Rusak</th>
                     <th>Jumlah</th>
                     <th>Keterangan</th>
@@ -38,6 +39,7 @@
                         <td><?php echo $br->nama_alat; ?></td>
                         <td><?php echo $br->merk; ?></td>
                         <td><?php echo $br->nama; ?></td>
+                        <td><?php echo $br->nama_unit; ?></td>
                         <td><?php echo $br->tanggal_rusak; ?></td>
                         <td><?php echo $br->jumlah_rusak; ?></td>
                         <td class="small-text"><?php echo $br->alasan; ?></td>
@@ -102,12 +104,12 @@
             "info": true,
             "columnDefs": [{
                     "orderable": false,
-                    "targets": 5
+                    "targets": 7
                 },
                 {
                     "orderable": false,
-                    "targets": 6
-                }, // Menonaktifkan pengurutan pada kolom ke-6 (indeks 5)
+                    "targets": 8
+                }, // Menonaktifkan pengurutan pada kolom ke-8 (indeks 7)
                 {
                     "width": "7%",
                     "targets": 0
@@ -129,20 +131,28 @@
                     "targets": 4
                 }, // Mengatur lebar kolom "Jumlah Rusak" (indeks 4)
                 {
-                    "width": "25%",
+                    "width": "10%",
                     "targets": 5
                 }, // Mengatur lebar kolom "Keterangan" (indeks 5)
                 {
                     "width": "13%",
                     "targets": 6
-                } // Mengatur lebar kolom "Aksi" (indeks 6)
+                }, // Mengatur lebar kolom "Aksi" (indeks 6)
+                {
+                    "width": "20%",
+                    "targets":7
+                },
+                {
+                    "width": "13%",
+                    "targets": 8
+                }
             ],
             "dom": '<"row"<"col-md-4"l><"col-md-4 text-center"B><"col-md-4 text-right"f>>rtip',
             "buttons": [{
                     extend: 'pdf',
                     title: 'Data Barang Rusak',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                     },
                     className: 'btn btn-sm btn-success mr-2 mt-2'
                 },
@@ -150,7 +160,7 @@
                     extend: 'excel',
                     title: 'Data Barang Rusak',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                     },
                     className: 'btn btn-sm btn-success mr-2 mt-2'
                 },
@@ -158,7 +168,7 @@
                     extend: 'print',
                     title: 'Data Barang Rusak',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                     },
                     action: function(e, dt, button, config) {
                         // Ganti URL dengan URL halaman print Anda

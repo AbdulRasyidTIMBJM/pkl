@@ -28,7 +28,7 @@ class Alat_model extends CI_Model
     public function update($id_alat, $data)
     {
         $this->db->where('id_alat', $id_alat);
-        $this->db->update('alat_medis', $data);
+        return $this->db->update('alat_medis', $data);
     }
 
     public function delete_alat_medis($id)

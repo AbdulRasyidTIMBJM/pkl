@@ -56,6 +56,7 @@ class Alat extends MY_Controller
                 'jenis' => $this->input->post('jenis'),
                 'merk' => $this->input->post('merk'),
                 'spesifikasi' => $this->input->post('spesifikasi'),
+                'jumlah' => $this->input->post('jumlah') 
             ];
             $this->Alat_model->insert_alat_medis($data);
             $this->session->set_flashdata('success', 'Data Berhasil Disimpan');
@@ -78,6 +79,7 @@ class Alat extends MY_Controller
                 'jenis' => $this->input->post('jenis'),
                 'merk' => $this->input->post('merk'),
                 'spesifikasi' => $this->input->post('spesifikasi'),
+                'jumlah' => $this->input->post('jumlah')          
             );
 
             $this->Alat_model->update($id_alat, $data);

@@ -42,7 +42,6 @@
                             </select>
                             <?php echo form_error('id_unit'); ?>
                         </div>
-
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>

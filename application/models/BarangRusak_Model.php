@@ -24,12 +24,16 @@ class BarangRusak_model extends CI_Model
         $this->db->from('barang_rusak');
         $this->db->join('alat_medis', 'alat_medis.id_alat = barang_rusak.id_alat');
         $this->db->join('users', 'users.id = barang_rusak.pengguna_id');
-        $this->db->join('unit', 'unit.id_unit = barang_masuk.id_unit');
+        $this->db->join('unit', 'unit.id_unit = barang_rusak.id_unit');
         $query = $this->db->get();
         return $query->result();
     }
     public function get_all_alat_medis() {
         return $this->db->get('alat_medis')->result();
+    }
+    public function get_all_unit()
+    {
+        return $this->db->get('unit')->result();
     }
 
     public function select_by_id($tabel, $id_barang_rusak)
@@ -43,7 +47,7 @@ class BarangRusak_model extends CI_Model
         $this->db->from('barang_rusak');
         $this->db->join('alat_medis', 'alat_medis.id_alat = barang_rusak.id_alat');
         $this->db->join('users', 'users.id = barang_rusak.pengguna_id');
-        $this->db->join('unit', 'unit.id_unit = barang_masuk.id_unit');
+        $this->db->join('unit', 'unit.id_unit = barang_rusak.id_unit');
         
         // Tambahkan kondisi untuk rentang tanggal
         if ($tanggal_awal && $tanggal_akhir) {
@@ -63,5 +67,13 @@ class BarangRusak_model extends CI_Model
     public function delete_barang_rusak($id)
     {
         return $this->db->delete('barang_rusak', ['id_barang_rusak' => $id]);
+    }
+
+    public function get_merk($id_alat)
+    {
+        $this->db->where('id_alat', $id_alat);
+        $query = $this->db->get('alat_medis');
+        $row = $query->row();
+        return $row->merk;
     }
 }
