@@ -11,7 +11,6 @@ class BarangRusak extends MY_Controller
 
     public function index()
     {
-        $data['barang_rusak'] = $this->BarangRusak_model->select_all();
         $data['barang_rusak'] = $this->BarangRusak_model->get_barang_rusak_with_alat(); // Mengambil data barang rusak dengan nama alat
         $data['unit'] = $this->BarangRusak_model->get_all_unit();
         $data['title'] = 'Data Barang Rusak';
@@ -46,21 +45,47 @@ class BarangRusak extends MY_Controller
         $this->load->view('barang_rusak/edit', $data);
     }
     public function store()
-    {
+{
+    $this->form_validation->set_rules('id_alat', 'Nama Alat', 'required');
+    $this->form_validation->set_rules('tanggal_rusak', 'Tanggal Rusak', 'required');
+    $this->form_validation->set_rules('jumlah_rusak', 'Jumlah Rusak', 'required');
+    $this->form_validation->set_rules('alasan', 'Alasan', 'required');
+    $this->form_validation->set_rules('id_unit', 'Nama unit', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+        $this->session->set_flashdata('error', validation_errors());
+        redirect('BarangRusak/create');
+    } else {
+        $id_alat = $this->input->post('id_alat');
+        $jumlah_rusak = $this->input->post('jumlah_rusak');
+
+        // Cek jumlah alat yang tersedia
+        $jumlah_tersedia = $this->BarangRusak_model->get_jumlah_tersedia($id_alat);
+
+        if ($jumlah_rusak > $jumlah_tersedia) {
+            $this->session->set_flashdata('error', 'Jumlah keluar melebihi jumlah yang tersedia');
+            redirect('BarangRusak/create');
+        }
         $data = [
-            'id_alat' => $this->input->post('id_alat'),
+            'id_alat' => $id_alat,
             'tanggal_rusak' => $this->input->post('tanggal_rusak'),
-            'jumlah_rusak' => $this->input->post('jumlah_rusak'),
+            'jumlah_rusak' => $jumlah_rusak,
             'alasan' => $this->input->post('alasan'),
             'id_unit' => $this->input->post('id_unit'),
             'id_merk' => $this->input->post('id_alat'),
             'pengguna_id' => $this->session->userdata('id'), // Ambil user_id dari session secara otomatis
         ];
+        // Simpan data barang keluar
         $this->BarangRusak_model->insert_barang_rusak($data);
+
+        // Update jumlah alat di tabel alat_medis
+        $this->BarangRusak_model->update_jumlah_alat($id_alat, -$jumlah_rusak); // Kurangi jumlah alat
+
         $this->session->set_flashdata('success', 'Data Berhasil Di Simpan');
         redirect('BarangRusak');
     }
-
+}
+    
 
     public function update($id_barang_rusak)
     {
@@ -73,15 +98,34 @@ class BarangRusak extends MY_Controller
             $this->session->set_flashdata('error', validation_errors());
             redirect('BarangRusak/edit/' . $id_barang_rusak);
         } else {
+            // Ambil data barang keluar yang ada
+            $barang_rusak = $this->BarangRusak_model->select_by_id('barang_rusak', $id_barang_rusak);
+            $jumlah_sebelumnya = $barang_rusak->jumlah_rusak; // Ambil jumlah sebelumnya
+
+            $id_alat = $this->input->post('id_alat');
+            $jumlah_rusak = $this->input->post('jumlah_rusak');
+
+            // Cek jumlah alat yang tersedia
+            $jumlah_tersedia = $this->BarangRusak_model->get_jumlah_tersedia($id_alat);
+
+            // Hitung selisih
+            $selisih = $jumlah_rusak - $jumlah_sebelumnya;
+
+            if ($selisih > $jumlah_tersedia) {
+                $this->session->set_flashdata('error', 'Jumlah keluar melebihi jumlah yang tersedia');
+                redirect('BarangKeluar/edit/' . $id_barang_rusak);
+            }
             $data = array(
-                'id_alat' => $this->input->post('id_alat'),
+                'id_alat' => $id_alat,
                 'tanggal_rusak' => $this->input->post('tanggal_rusak'),
-                'jumlah_rusak' => $this->input->post('jumlah_rusak'),
+                'jumlah_rusak' => $jumlah_rusak,
                 'alasan' => $this->input->post('alasan'),
                 'id_unit' => $this->input->post('id_unit'),
                 'id_merk' => $this->input->post('id_alat'),
                 'pengguna_id' => $this->session->userdata('id'),
             );
+            // Update jumlah alat di tabel alat_medis
+            $this->BarangRusak_model->update_jumlah_alat($id_alat, -$selisih); // Kurangi jumlah alat
 
             $this->BarangRusak_model->update($id_barang_rusak, $data);
             $this->session->set_flashdata('success', 'Data Berhasil Diupdate');
@@ -111,10 +155,25 @@ class BarangRusak extends MY_Controller
         $this->load->view('layout/footer');
     }
 
-    public function delete($id)
+    public function delete($id_barang_rusak)
     {
-        $this->BarangRusak_model->delete_barang_rusak($id);
-        $this->session->set_flashdata('delete', 'Data Berhasil Dihapus');
+        // Ambil data barang keluar yang akan dihapus
+        $barang_rusak = $this->BarangRusak_model->select_by_id('barang_rusak', $id_barang_rusak);
+        $jumlah_rusak = $barang_rusak->jumlah_rusak; // Ambil jumlah yang dikeluarkan
+    
+        // Hapus data barang keluar
+        $this->BarangRusak_model->delete_barang_rusak($id_barang_rusak);
+    
+        // Update jumlah alat di tabel alat_medis
+        $this->BarangRusak_model->update_jumlah_alat($barang_rusak->id_alat, $jumlah_rusak); // Tambah kembali jumlah alat
+    
+        $this->session->set_flashdata('delete', 'Data berhasil dihapus');
         redirect('BarangRusak');
+    }
+    public function get_merk()
+    {
+        $id_alat = $this->input->post('id_alat');
+        $merk = $this->BarangMasuk_model->get_merk($id_alat);
+        echo $merk;
     }
 }

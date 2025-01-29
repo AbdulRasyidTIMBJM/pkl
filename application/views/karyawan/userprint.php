@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,8 +54,7 @@
             margin-top: 20px;
         }
 
-        table th,
-        table td {
+        table th, table td {
             border: 1px solid black;
             padding: 8px;
             text-align: center;
@@ -67,7 +65,6 @@
         }
     </style>
 </head>
-
 <body>
     <!-- Kop Surat -->
     <div id="kopSurat">
@@ -87,29 +84,22 @@
         <thead>
             <tr>
             <th>NO</th>
-                    <th>Nama Alat</th>
-                    <th>Merk</th>
-                    <th>Operator</th>
-                    <th>Unit</th>
-                    <th>Tanggal Rusak</th>
-                    <th>Jumlah</th>
-                    <th>Keterangan</th>
+          <th>Nama</th>
+          <th>Nomor Telepon</th>
+          <th>Alamat</th>
             </tr>
         </thead>
-        <tbody>
-            <?php $no = 1;
-            foreach ($barang_rusak as $br): ?>
-                <tr>
-                <td><?php echo $no++; ?></td>
-                        <td><?php echo $br->nama_alat; ?></td>
-                        <td><?php echo $br->merk; ?></td>
-                        <td><?php echo $br->nama; ?></td>
-                        <td><?php echo $br->nama_unit; ?></td>
-                        <td><?php echo $br->tanggal_rusak; ?></td>
-                        <td><?php echo $br->jumlah_rusak; ?></td>
-                        <td class="small-text"><?php echo $br->alasan; ?></td>
-                </tr>
-            <?php endforeach; ?>
+       <tbody>
+    <?php $no = 1; 
+    foreach ($karyawan as $u): ?>
+        <tr>
+            <td><?php echo $no++; ?></td>
+            <td><?php echo $u->nama; ?></td>
+            <td><?php echo $u->nomor_telepon; ?></td>
+            <td><?php echo $u->alamat; ?></td>
+        </tr>
+    <?php endforeach; ?>
+</tbody>
         </tbody>
     </table>
 
@@ -120,5 +110,4 @@
         };
     </script>
 </body>
-
 </html>

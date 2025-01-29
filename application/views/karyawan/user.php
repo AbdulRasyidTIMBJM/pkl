@@ -1,53 +1,21 @@
 <main id="main" class="main" style="margin-left: 250px;">
   <div class="card-body">
-    <?php if ($this->session->flashdata('success')) { ?>
-      <div class="alert alert-success alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <h6><i class="icon fas fa-check"></i> <?= $this->session->flashdata('success') ?> </h6>
-      </div>
-    <?php } elseif ($this->session->flashdata('error')) { ?>
-      <div class="alert alert-warning alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <h6><i class="icon fas fa-exclamation-triangle"></i> <?= $this->session->flashdata('error') ?> </h6>
-      </div>
-    <?php } elseif ($this->session->flashdata('delete')) { ?>
-      <div class="alert alert-danger alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <h6><i class="icon fas fa-ban"></i> <?= $this->session->flashdata('delete') ?></h6>
-      </div>
-    <?php } ?>
-    <a href="<?php echo site_url('Karyawan/create'); ?>" class="btn btn-sm btn-success mr-2"><i class="fas fa-plus"></i> Tambah Data</a>
     <table id="example1" class="table table-bordered table-striped">
       <thead>
         <tr>
           <th>NO</th>
-          <th>Username</th>
           <th>Nama</th>
           <th>Nomor Telepon</th>
           <th>Alamat</th>
-          <th>Level</th>
-          <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
         <?php $no = 1; foreach ($karyawan as $u): ?>
           <tr>
             <td><?php echo $no++; ?></td>
-            <td><?php echo $u->username; ?></td>
             <td><?php echo $u->nama; ?></td>
             <td><?php echo $u->nomor_telepon; ?></td>
             <td><?php echo $u->alamat; ?></td>
-            <td>
-  <?php if ($u->level == 1) : ?>
-    Admin
-  <?php elseif ($u->level == 2) : ?>
-    User
-  <?php endif; ?>
-</td>
-            <td>
-              <a href="<?= base_url('Karyawan/edit/' . $u->id) ?> ?>" class="btn btn-sm btn-primary">Edit</a>
-              <a href="<?= base_url('Karyawan/delete/' . $u->id) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data?')">Hapus</a>
-            </td>
           </tr>
         <?php endforeach; ?>
       </tbody>
@@ -104,28 +72,28 @@
             "searching": true,
             "ordering": true,
             "info": true,
-            "dom": '<"row"<"col-md-4"l><"col-md-4 text-center"B><"col-md-4 text-right"f>>rtip',
+            "dom": '<"row"<"col-md-4"l><"col-md-4 text-center"><"col-md-4 text-right"f>>rtip',
             "buttons": [{
                     extend: 'pdf',
-                    title: 'Data Karyawan',
+                    title: 'Data karyawan',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
+                        columns: [0, 1, 2, 3]
                     },
                     className: 'btn btn-sm btn-success mr-2 mt-2'
                 },
                 {
                     extend: 'excel',
-                    title: 'Data Karyawan',
+                    title: 'Data karyawan',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
+                        columns: [0, 1, 2, 3]
                     },
                     className: 'btn btn-sm btn-success mr-2 mt-2'
                 },
                 {
                     extend: 'print',
-                    title: 'Data Karyawan',
+                    title: 'Data karyawan',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
+                        columns: [0, 1, 2, 3]
                     },
                     className: 'btn btn-sm btn-success mr-2 mt-2'
                 }

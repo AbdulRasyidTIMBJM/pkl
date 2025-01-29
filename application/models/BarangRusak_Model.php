@@ -76,4 +76,19 @@ class BarangRusak_model extends CI_Model
         $row = $query->row();
         return $row->merk;
     }
+    public function update_jumlah_alat($id_alat, $jumlah)
+    {
+        $this->db->set('jumlah', 'jumlah + ' . (int)$jumlah, FALSE);
+        $this->db->where('id_alat', $id_alat);
+        $this->db->update('alat_medis');
+    }
+    public function get_jumlah_tersedia($id_alat)
+    {
+        $this->db->select('jumlah');
+        $this->db->from('alat_medis');
+        $this->db->where('id_alat', $id_alat);
+        $query = $this->db->get();
+        $row = $query->row();
+        return $row ? $row->jumlah : 0; 
+    }
 }

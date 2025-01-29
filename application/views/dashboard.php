@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory Statistics</title>
-    <link rel="stylesheet" href="<?= base_url('assets/plugins/bootstrap/css/bootstrap.min.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/dist/css/adminlte.min.css'); ?>">
-</head>
-
+<div class="main" style="margin-left: 250px; transition: margin 0.5s; overflow-x: hidden;">
+            <?php if ($this->session->flashdata('pesan')) { ?>
+                <div class="alert alert-info alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h6><i class="icon fas fa-info"></i> <?= $this->session->flashdata('pesan') ?> </h6>
+                </div>
+            <?php  } ?>
+        </div>
 <body>
     <main id="main" class="main" style="margin-left: 250px;">
         <div class="row" style="margin-top: 50px;">

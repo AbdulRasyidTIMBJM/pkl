@@ -18,6 +18,24 @@ class Karyawan extends MY_Controller
         $this->load->view('layout/sidebaradmin');
         $this->load->view('karyawan/index', $data); // Memuat view dan mengirimkan data
     }
+
+    public function user(){
+        $data['karyawan'] = $this->Karyawan_model->select_all();
+        $data['title'] = 'DATA Karyawan';
+        $this->load->view('layout/head');
+        $this->load->view('layout/header', $data);
+        $this->load->view('layout/sidebar');
+        $this->load->view('karyawan/user', $data);
+    }
+
+    public function userprint(){
+        $data['karyawan'] = $this->Karyawan_model->select_all();
+        $data['title'] = 'Cetak Data Karyawan';
+
+        $this->load->view('karyawan/userprint', $data);
+
+    }
+
     public function create()
     {
         $data['title'] = 'TAMBAH DATA KARYAWAN';

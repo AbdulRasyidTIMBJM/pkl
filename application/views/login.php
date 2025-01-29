@@ -1,3 +1,108 @@
+<style>
+  body {
+    background-image: url('<?= base_url('assets/dist/img/latarbelakang.jpg') ?>');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  .login-box {
+    background-color: rgb(62, 171, 243);
+    opacity: 1;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('<?= base_url('assets/dist/img/latarbelakang.jpg') ?>');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    opacity: 0.5;
+    background-blend-mode: multiply;
+    z-index: -1;
+  }
+
+  .login-logo img {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+  }
+
+  .login-logo b {
+    font-size: 24px;
+    color: #fff;
+  }
+
+  .login-box-msg {
+    font-size: 18px;
+    color: #fff;
+  }
+
+  .input-group-text {
+    background-color: #fff;
+    border: none;
+    padding: 10px;
+  }
+
+  .input-group-text span {
+    color: #337ab7;
+  }
+
+  .icheck-primary {
+    margin-top: 10px;
+  }
+
+  .icheck-primary input[type="checkbox"] {
+    margin-right: 10px;
+  }
+
+  .icheck-primary label {
+    font-size: 14px;
+    color: #000;
+  }
+
+  .btn-primary {
+    background-color: #337ab7;
+    border-color: #337ab7;
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background-color: #23527c;
+    border-color: #23527c;
+  }
+
+  input[type="password"]::-ms-reveal,
+  input[type="password"]::-ms-clear {
+    display: none;
+  }
+
+  .login-card-body {
+    background-color: rgba(24, 23, 23, 0.75);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .login-box-msg {
+    font-size: 18px;
+    color: #000;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+</style>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +120,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url('assets/dist/css/adminlte.min.css') ?>">
 </head>
+
 <?php if ($this->session->flashdata('pesan')): ?>
   <div class="alert alert-warning">
     <?= $this->session->flashdata('pesan'); ?>
@@ -41,12 +147,16 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="text" name="password" class="form-control" id="password" required>
+            <input type="password" name="password" class="form-control" id="password" required>
             <div class="input-group-append">
               <div class="input-group-text">
-                <span class="fas fa-eye" id="togglePassword"></span>
+                <span class="fas fa-lock"></span>
               </div>
             </div>
+          </div>
+          <div class="icheck-primary">
+            <input type="checkbox" id="togglePassword">
+            <label for="togglePassword">Show Password</label>
           </div>
           <!-- /.col -->
           <div class="col-4 offset-md-4">
@@ -63,12 +173,19 @@
   <!-- /.login-box -->
 
   <!-- jQuery -->
-  <script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>a"></script>
+  <script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
   <!-- Bootstrap 4 -->
   <script src="<?= base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
   <!-- AdminLTE App -->
   <script src="<?= base_url('assets/dist/js/adminlte.min.js') ?>"></script>
-  <script src="<?= base_url('path/togglePassword.js') ?>"></script>
-</body>
-
-</html>
+  <script>
+    $(document).ready(function() {
+      $('#togglePassword').click(function() {
+        if ($(this).is(':checked')) {
+          $('#password').attr('type', 'text');
+        } else {
+          $('#password').attr('type', 'password');
+        }
+      });
+    });
+  </script>

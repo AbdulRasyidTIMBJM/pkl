@@ -18,9 +18,9 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="<?= base_url('dashboard'); ?>" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Dashboard</p>
+                    <a href="<?= base_url('karyawan/user'); ?>" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Karyawan</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -53,6 +53,18 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+                            <a href="<?= base_url('Karyawan/userprint'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Laporan Karyawan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('Alat/print'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Laporan Alat</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?= base_url('BarangMasuk/reprint'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Laporan Barang Masuk</p>
@@ -68,18 +80,6 @@
                             <a href="<?= base_url('BarangRusak/reprint'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Laporan Barang Rusak</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('Karyawan/reprint'); ?>" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Laporan Karyawan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('Alat/print'); ?>" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Laporan Alat</p>
                             </a>
                         </li>
                     </ul>

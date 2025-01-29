@@ -94,6 +94,6 @@ class BarangKeluar_model extends CI_Model
         $this->db->where('id_alat', $id_alat);
         $query = $this->db->get();
         $row = $query->row();
-        return $row ? $row->jumlah : 0; // Mengembalikan 0 jika tidak ada
+        return $row ? $row->jumlah : 0; 
     }
 }
