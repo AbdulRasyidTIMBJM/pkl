@@ -21,6 +21,6 @@ class User extends MY_Controller
         $this->load->view('layout/head');
         $this->load->view('layout/header', $data);
         $this->load->view('layout/sidebar');
-        $this->load->view('dashboard', );
+        $this->load->view('dashboard', $data);
     }
 }

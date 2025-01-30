@@ -14,7 +14,7 @@ class Karyawan extends MY_Controller
         $data['karyawan'] = $this->Karyawan_model->select_all(); // Mengambil DATA Karyawan dengan nama Karyawan
         $data['title'] = 'DATA Karyawan';
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
+        $this->load->view('layout/headeradmin', $data);
         $this->load->view('layout/sidebaradmin');
         $this->load->view('karyawan/index', $data); // Memuat view dan mengirimkan data
     }
@@ -41,7 +41,7 @@ class Karyawan extends MY_Controller
         $data['title'] = 'TAMBAH DATA KARYAWAN';
         $data['karyawan'] = $this->Karyawan_model->select_all();
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
+        $this->load->view('layout/headeradmin', $data);
         $this->load->view('layout/sidebaradmin');
         $this->load->view('karyawan/create', $data);
         $this->load->view('layout/footer');
@@ -80,7 +80,7 @@ class Karyawan extends MY_Controller
         $data['karyawan'] = $this->Karyawan_model->select_by_id('users', $id);
         $data['title'] = 'Edit Karyawan';
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
+        $this->load->view('layout/headeradmin', $data);
         $this->load->view('layout/sidebaradmin');
         $this->load->view('karyawan/edit', $data);
         $this->load->view('layout/footer');

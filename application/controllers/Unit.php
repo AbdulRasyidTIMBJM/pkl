@@ -14,7 +14,7 @@ class Unit extends MY_Controller
         $data['unit'] = $this->Unit_model->select_all(); // Mengambil DATA UNIT dengan nama unit
         $data['title'] = 'DATA UNIT';
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
+        $this->load->view('layout/headeradmin', $data);
         $this->load->view('layout/sidebaradmin');
         $this->load->view('unit/index', $data); // Memuat view dan mengirimkan data
     }
@@ -24,7 +24,7 @@ class Unit extends MY_Controller
         $data['title'] = 'TAMBUH DATA UNIT';
         $data['unit'] = $this->Unit_model->select_all();
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
+        $this->load->view('layout/headeradmin', $data);
         $this->load->view('layout/sidebaradmin');
         $this->load->view('unit/create', $data);
         $this->load->view('layout/footer');
@@ -36,7 +36,7 @@ class Unit extends MY_Controller
         $data['unit'] = $this->Unit_model->select_by_id('unit', $id_unit);
         $data['title'] = 'EdUt DATA UNIT';
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
+        $this->load->view('layout/headeradmin', $data);
         $this->load->view('layout/sidebaradmin');
         $this->load->view('unit/edit', $data);
         $this->load->view('layout/footer');
