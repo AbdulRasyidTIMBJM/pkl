@@ -16,17 +16,64 @@
                 <h6><i class="icon fas fa-ban"></i> <?= $this->session->flashdata('delete') ?></h6>
             </div>
         <?php } ?>
+        <!-- Button untuk membuka modal filter -->
+        <button type="button" class="btn btn-sm btn-success mr-2" data-toggle="modal" data-target="#filterModal">
+            Filter Data
+        </button>
+
+        <!-- Modal Filter -->
+        <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="filterModalLabel">Filter Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="GET" action="<?php echo site_url('BarangKeluar/index'); ?>">
+                            <div class="form-group">
+                                <label for="bulan">Bulan</label>
+                                <select name="bulan" class="form-control" id="bulan">
+                                    <?php for ($i = 1; $i <= 12; $i++): ?>
+                                        <option value="<?= $i ?>" <?= ($i == $this->input->get('bulan')) ? 'selected' : '' ?>><?= date('F', mktime(0, 0, 0, $i, 1)) ?></option>
+                                    <?php endfor; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tahun">Tahun</label>
+                                <input type="number" name="tahun" class="form-control" id="tahun" value="<?= $this->input->get('tahun') ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tanggal_awal">Tanggal Awal</label>
+                                <input type="date" name="tanggal_awal" class="form-control" id="tanggal_awal" value="<?= $this->input->get('tanggal_awal') ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="tanggal_akhir">Tanggal Akhir</label>
+                                <input type="date" name="tanggal_akhir" class="form-control" id="tanggal_akhir" value="<?= $this->input->get('tanggal_akhir') ?>">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary">Terapkan Filter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <a href="<?php echo site_url('BarangKeluar/create'); ?>" class="btn btn-sm btn-success mr-2"><i class="fas fa-plus"></i> Tambah Data</a>
         <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>NO</th>
-                    <th>Nama Alat</th>
-                    <th>Merk</th>
-                    <th>Operator</th>
-                    <th>Tanggal Keluar</th>
-                    <th>Jumlah Keluar</th>
-                    <th>Nama Unit</th>
+                    <th style="font-size: 14px;">NO</th>
+                    <th style="font-size: 14px;">Nama Alat</th>
+                    <th style="font-size: 14px;">Merk</th>
+                    <th style="font-size: 14px;">Operator</th>
+                    <th style="font-size: 14px;">Tanggal Keluar</th>
+                    <th style="font-size: 14px;">Jumlah Keluar</th>
+                    <th style="font-size: 14px;">Nama Unit</th>
+                    <th style="font-size: 14px;">Status</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -35,13 +82,13 @@
                 foreach ($barang_keluar as $bk): ?>
                     <tr>
                         <td><?php echo $no++; ?></td>
-                        <td><?php echo $bk->nama_alat; ?></td>
-                        <td><?php echo $bk->merk;?></td>
+                        <td style="font-size: 12px;"><?php echo $bk->nama_alat; ?></td>
+                        <td style="font-size: 12px;"><?php echo $bk->merk;?></td>
                         <td><?php echo $bk->nama; ?></td>
                         <td><?php echo $bk->tanggal_keluar; ?></td>
                         <td><?php echo $bk->jumlah_keluar; ?></td>
                         <td><?php echo $bk->nama_unit; ?></td>
-                        
+                        <td style="font-size: 12px;"><?php echo $bk->status; ?></td>
                         <td>
                             <a href="<?= base_url('BarangKeluar/edit/' . $bk->id_barang_keluar) ?>" class="btn btn-sm mt-2 btn-primary">Edit</a>
                             <a href="<?= base_url('BarangKeluar/delete/' . $bk->id_barang_keluar) ?>" class="btn btn-sm mt-2 btn-danger" onclick="return confirm('Yakin ingin menghapus data?')">Hapus</a>
@@ -103,14 +150,14 @@
             "info": true,
             "columnDefs": [{
                 "orderable": false,
-                "targets": 7
+                "targets": 8
             }],
             "dom": '<"row"<"col-md-4"l><"col-md-4 text-center"B><"col-md-4 text-right"f>>rtip',
             "buttons": [{
                     extend: 'pdf',
                     title: 'Data Barang Keluar',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6]
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
                     },
                     className: 'btn btn-sm btn-success mr-2 mt-2'
                 },
@@ -118,7 +165,7 @@
                     extend: 'excel',
                     title: 'Data Barang Keluar',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6]
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
                     },
                     className: 'btn btn-sm btn-success mr-2 mt-2'
                 },
@@ -126,7 +173,7 @@
                     extend: 'print',
                     title: 'Data Barang Keluar',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6]
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
                     },
                     action: function(e, dt, button, config) {
                         // Ganti URL dengan URL halaman print Anda

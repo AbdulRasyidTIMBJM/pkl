@@ -12,7 +12,19 @@ class BarangKeluar extends MY_Controller
 
     public function index()
     {
-        $data['barang_keluar'] = $this->BarangKeluar_model->get_barang_keluar_with_alat(); // Mengambil data barang keluar dengan nama alat
+         // Ambil bulan, tahun, dan rentang tanggal dari input GET
+         $bulan = $this->input->get('bulan');
+         $tahun = $this->input->get('tahun');
+         $tanggal_awal = $this->input->get('tanggal_awal');
+         $tanggal_akhir = $this->input->get('tanggal_akhir');
+ 
+        //  // Jika tidak ada filter, ambil data default berdasarkan bulan dan tahun saat ini
+        //  if (!$bulan && !$tahun && !$tanggal_awal && !$tanggal_akhir) {
+        //      $bulan = date('n'); // Bulan saat ini (1-12)
+        //      $tahun = date('Y'); // Tahun saat ini
+        //  }
+
+        $data['barang_keluar'] = $this->BarangKeluar_model->get_barang_keluar_with_alat($bulan, $tahun, $tanggal_awal, $tanggal_akhir); // Mengambil data barang keluar dengan nama alat
         $data['title'] = 'Data Barang Keluar';
         $this->load->view('layout/head');
         $this->load->view('layout/header', $data);
@@ -51,6 +63,7 @@ class BarangKeluar extends MY_Controller
         $this->form_validation->set_rules('tanggal_keluar', 'Tanggal keluar', 'required');
         $this->form_validation->set_rules('jumlah_keluar', 'Jumlah keluar', 'required');
         $this->form_validation->set_rules('id_unit', 'Nama unit', 'required');
+        $this->form_validation->set_rules('status', 'status', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', validation_errors());
@@ -74,6 +87,8 @@ class BarangKeluar extends MY_Controller
                 'pengguna_id' => $this->session->userdata('id'),
                 'id_unit' => $this->input->post('id_unit'),
                 'id_merk' => $id_alat,
+                'status' => $this->input->post('status'),
+
             ];
 
             // Simpan data barang keluar
@@ -93,6 +108,7 @@ class BarangKeluar extends MY_Controller
         $this->form_validation->set_rules('tanggal_keluar', 'Tanggal keluar', 'required');
         $this->form_validation->set_rules('jumlah_keluar', 'Jumlah keluar', 'required');
         $this->form_validation->set_rules('id_unit', 'Nama unit', 'required');
+        $this->form_validation->set_rules('status', 'status', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', validation_errors());
@@ -121,7 +137,9 @@ class BarangKeluar extends MY_Controller
                 'tanggal_keluar' => $this->input->post('tanggal_keluar'),
                 'jumlah_keluar' => $jumlah_keluar,
                 'id_unit' => $this->input->post('id_unit'),
-                'pengguna_id' => $this->session->userdata('id')
+                'pengguna_id' => $this->session->userdata('id'),
+                'id_merk' => $id_alat,
+                'status' => $this->input->post('status'),
             );
 
             // Update jumlah alat di tabel alat_medis

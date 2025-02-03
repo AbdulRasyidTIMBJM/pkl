@@ -18,13 +18,27 @@ class BarangKeluar_model extends CI_Model
         return $this->db->get('barang_keluar')->result();
     }
 
-    public function get_barang_keluar_with_alat()
+    public function get_barang_keluar_with_alat($bulan = null, $tahun = null, $tanggal_awal = null, $tanggal_akhir = null)
     {
         $this->db->select('barang_keluar.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
         $this->db->from('barang_keluar');
         $this->db->join('alat_medis', 'alat_medis.id_alat = barang_keluar.id_alat');
         $this->db->join('users', 'users.id = barang_keluar.pengguna_id');
         $this->db->join('unit', 'unit.id_unit = barang_keluar.id_unit');
+        // Filter berdasarkan bulan dan tahun
+        if ($bulan) {
+            $this->db->where('MONTH(tanggal_keluar)', $bulan);
+        }
+        if ($tahun) {
+            $this->db->where('YEAR(tanggal_keluar)', $tahun);
+        }
+        // Filter berdasarkan rentang tanggal
+        if ($tanggal_awal) {
+            $this->db->where('tanggal_keluar >=', $tanggal_awal);
+        }
+        if ($tanggal_akhir) {
+            $this->db->where('tanggal_keluar <=', $tanggal_akhir);
+        }
         $query = $this->db->get();
         return $query->result();
     }

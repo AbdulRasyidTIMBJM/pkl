@@ -42,6 +42,13 @@
                             </select>
                             <?php echo form_error('id_unit'); ?>
                         </div>
+                        <div class="form-group">
+                            <label for="status">Status Steril:</label>
+                            <select name="status" id="status" class="form-control" required>
+                                <option value="Belum Disterilkan" <?php if ($barang_masuk->status == 'Belum Disterilkan') echo 'selected'; ?>>Belum Disterilkan</option>
+                                <option value="Sudah Disterilkan" <?php if ($barang_masuk->status == 'Sudah Disterilkan') echo 'selected'; ?>>Sudah Disterilkan</option>
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>

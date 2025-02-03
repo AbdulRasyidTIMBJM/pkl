@@ -21,6 +21,7 @@ class Login extends CI_Controller
                 'nomor_telepon' => $cek['nomor_telepon'],
                 'alamat' => $cek['alamat'],
                 'level' => $cek['level'],
+                'img' => $cek['img'],
             ];
             $this->session->set_userdata($data);
             if ($cek['level'] == 1) {

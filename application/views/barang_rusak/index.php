@@ -16,6 +16,47 @@
                 <h6><i class="icon fas fa-ban"></i> <?= $this->session->flashdata('delete') ?></h6>
             </div>
         <?php } ?>
+        <!-- Modal Filter -->
+        <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="filterModalLabel">Filter Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="GET" action="<?php echo site_url('BarangRusak/index'); ?>">
+                            <div class="form-group">
+                                <label for="bulan">Bulan</label>
+                                <select name="bulan" class="form-control" id="bulan">
+                                    <?php for ($i = 1; $i <= 12; $i++): ?>
+                                        <option value="<?= $i ?>" <?= ($i == $this->input->get('bulan')) ? 'selected' : '' ?>><?= date('F', mktime(0, 0, 0, $i, 1)) ?></option>
+                                    <?php endfor; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tahun">Tahun</label>
+                                <input type="number" name="tahun" class="form-control" id="tahun" value="<?= $this->input->get('tahun') ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tanggal_awal">Tanggal Awal</label>
+                                <input type="date" name="tanggal_awal" class="form-control" id="tanggal_awal" value="<?= $this->input->get('tanggal_awal') ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="tanggal_akhir">Tanggal Akhir</label>
+                                <input type="date" name="tanggal_akhir" class="form-control" id="tanggal_akhir" value="<?= $this->input->get('tanggal_akhir') ?>">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary">Terapkan Filter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <a href="<?php echo site_url('BarangRusak/create'); ?>" class="btn btn-sm btn-success mr-2"><i class="fas fa-plus"></i> Tambah Data</a>
         <table id="example1" id="example2" class="table table-bordered table-striped">
             <thead>

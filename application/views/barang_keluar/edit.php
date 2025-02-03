@@ -6,7 +6,7 @@
                     Edit Barang Keluar
                 </div>
                 <div class="card-body">
-                <?php if ($this->session->flashdata('success')) { ?>
+                    <?php if ($this->session->flashdata('success')) { ?>
                         <div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             <h6><i class="icon fas fa-check"></i> <?= $this->session->flashdata('success') ?> </h6>
@@ -34,9 +34,9 @@
                             <input type="text" name="merk" id="merk" class="form-control" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="tanggal_keluar">Tanggal Keluar:</label>
-                            <input type="date" name="tanggal_keluar" id="tanggal_keluar" class="form-control" value="<?php echo $barang_keluar->tanggal_keluar; ?>" required>
-                            <?php echo form_error('tanggal_keluar'); ?>
+                            <label for="jumlah_keluar">Jumlah Keluar:</label>
+                            <input type="number" name="jumlah_keluar" id="jumlah_keluar" class="form-control" value="<?= $barang_keluar->jumlah_keluar ?>" required>
+                            <?php echo form_error('jumlah_keluar'); ?>
                         </div>
                         <div class="form-group">
                             <label for="tanggal_keluar">Tanggal Keluar:</label>
@@ -53,7 +53,14 @@
                             </select>
                             <?php echo form_error('id_unit'); ?>
                         </div>
-
+                        <div class="form-group">
+                            <label for="status">Status Steril:</label>
+                            <select name="status" id="status" class="form-control" required>
+                                <option value="Sudah Disterilkan" <?php if ($barang_keluar->status == 'Sudah Disterilkan') echo 'selected'; ?>>Sudah Disterilkan</option>
+                                <option value="Belum Disterilkan" <?php if ($barang_keluar->status == 'Belum Disterilkan') echo 'selected'; ?>>Belum Disterilkan</option>
+                            </select>
+                            <?php echo form_error('status'); ?>
+                        </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>

@@ -11,7 +11,19 @@ class BarangRusak extends MY_Controller
 
     public function index()
     {
-        $data['barang_rusak'] = $this->BarangRusak_model->get_barang_rusak_with_alat(); // Mengambil data barang rusak dengan nama alat
+         // Ambil bulan, tahun, dan rentang tanggal dari input GET
+         $bulan = $this->input->get('bulan');
+         $tahun = $this->input->get('tahun');
+         $tanggal_awal = $this->input->get('tanggal_awal');
+         $tanggal_akhir = $this->input->get('tanggal_akhir');
+ 
+        //  // Jika tidak ada filter, ambil data default berdasarkan bulan dan tahun saat ini
+        //  if (!$bulan && !$tahun && !$tanggal_awal && !$tanggal_akhir) {
+        //      $bulan = date('n'); // Bulan saat ini (1-12)
+        //      $tahun = date('Y'); // Tahun saat ini
+        //  }
+         
+        $data['barang_rusak'] = $this->BarangRusak_model->get_barang_rusak_with_alat($bulan, $tahun, $tanggal_awal, $tanggal_akhir); // Mengambil data barang rusak dengan nama alat
         $data['unit'] = $this->BarangRusak_model->get_all_unit();
         $data['title'] = 'Data Barang Rusak';
         $this->load->view('layout/head');

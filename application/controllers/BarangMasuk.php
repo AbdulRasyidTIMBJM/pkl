@@ -11,9 +11,21 @@ class BarangMasuk extends MY_Controller
 
     public function index()
     {
+        // Ambil bulan, tahun, dan rentang tanggal dari input GET
+        $bulan = $this->input->get('bulan');
+        $tahun = $this->input->get('tahun');
+        $tanggal_awal = $this->input->get('tanggal_awal');
+        $tanggal_akhir = $this->input->get('tanggal_akhir');
+
+        // // Jika tidak ada filter, ambil data default berdasarkan bulan dan tahun saat ini
+        // if (!$bulan && !$tahun && !$tanggal_awal && !$tanggal_akhir) {
+        //     $bulan = date('n'); // Bulan saat ini (1-12)
+        //     $tahun = date('Y'); // Tahun saat ini
+        // }
+
         $this->load->model('BarangMasuk_model'); // Memuat model
         $data['barang_masuk'] = $this->BarangMasuk_model->select_all();
-        $data['barang_masuk'] = $this->BarangMasuk_model->get_barang_masuk_with_alat(); // Mengambil data barang masuk dengan nama alat
+        $data['barang_masuk'] = $this->BarangMasuk_model->get_barang_masuk_with_alat($bulan, $tahun, $tanggal_awal, $tanggal_akhir); // Mengambil data barang masuk dengan nama alat
         $data['title'] = 'Data Barang Masuk';
         $this->load->view('layout/head');
         $this->load->view('layout/header', $data);
@@ -63,7 +75,8 @@ class BarangMasuk extends MY_Controller
                 'jumlah_masuk' => $this->input->post('jumlah_masuk'),
                 'id_unit' => $this->input->post('id_unit'),
                 'id_merk' => $this->input->post('id_alat'),
-                'pengguna_id' => $this->session->userdata('id')
+                'pengguna_id' => $this->session->userdata('id'),
+                'status' => $this->input->post('status'),
             ];
 
             // Simpan data barang masuk
@@ -103,6 +116,7 @@ class BarangMasuk extends MY_Controller
                 'id_unit' => $this->input->post('id_unit'),
                 'id_merk' => $this->input->post('id_alat'),
                 'pengguna_id' => $this->session->userdata('id'),
+                'status' => $this->input->post('status'),
             );
 
             // Update jumlah alat di tabel alat_medis

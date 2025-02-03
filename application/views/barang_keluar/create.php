@@ -49,6 +49,13 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="status">Status Steril:</label>
+                            <select name="status" id="status" class="form-control" required>
+                                <option value="Sudah Disterilkan">Sudah Disterilkan</option>
+                                <option value="Belum Disterilkan">Belum Disterilkan</option>
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>
