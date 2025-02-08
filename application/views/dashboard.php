@@ -7,7 +7,7 @@
             <?php  } ?>
         </div>
 <body>
-    <main id="main" class="main" style="margin-left: 250px;">
+<main class="content-wrapper">
         <div class="row" style="margin-top: 50px;">
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-info" style="height: 120px;">

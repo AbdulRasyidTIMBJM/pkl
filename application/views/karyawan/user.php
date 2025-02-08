@@ -1,4 +1,4 @@
-<main id="main" class="main" style="margin-left: 250px;">
+<main class="content-wrapper">
   <div class="card-body">
     <table id="example1" class="table table-bordered table-striped">
       <thead>

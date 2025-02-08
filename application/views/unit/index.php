@@ -1,4 +1,4 @@
-<main id="main" class="main" style="margin-left: 250px;">
+<main class="content-wrapper">
   <div class="card-body">
     <?php if ($this->session->flashdata('success')) { ?>
       <div class="alert alert-success alert-dismissible">

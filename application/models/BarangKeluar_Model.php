@@ -65,7 +65,35 @@ class BarangKeluar_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    // public function get_barang_keluar_with_alat_by_onedate($tanggal)
+    // {
+    //     $this->db->select('barang_keluar.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
+    //     $this->db->from('barang_keluar');
+    //     $this->db->join('alat_medis', 'alat_medis.id_alat = barang_keluar.id_alat');
+    //     $this->db->join('users', 'users.id = barang_keluar.pengguna_id');
+    //     $this->db->join('unit', 'unit.id_unit = barang_keluar.id_unit');
 
+    //     // Tambahkan kondisi untuk tanggal
+    //     $this->db->where('tanggal_keluar', $tanggal);
+
+    //     $query = $this->db->get();
+    //     return $query->result();
+    // }
+
+    public function get_barang_keluar_by_id($id_barang_keluar)
+    {
+        $this->db->select('barang_keluar.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
+        $this->db->from('barang_keluar');
+        $this->db->join('alat_medis', 'alat_medis.id_alat = barang_keluar.id_alat');
+        $this->db->join('users', 'users.id = barang_keluar.pengguna_id');
+        $this->db->join('unit', 'unit.id_unit = barang_keluar.id_unit');
+
+        // Tambahkan kondisi untuk id_barang_keluar
+        $this->db->where('id_barang_keluar', $id_barang_keluar);
+
+        $query = $this->db->get();
+        return $query->row();
+    }
 
     public function get_all_unit()
     {
@@ -108,6 +136,58 @@ class BarangKeluar_model extends CI_Model
         $this->db->where('id_alat', $id_alat);
         $query = $this->db->get();
         $row = $query->row();
-        return $row ? $row->jumlah : 0; 
+        return $row ? $row->jumlah : 0;
     }
+//     public function get_barang_keluar_with_alat_by_date_and_unit($tanggal_awal, $tanggal_akhir, $id_unit)
+// {
+//     $this->db->select('barang_keluar.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
+//     $this->db->from('barang_keluar');
+//     $this->db->join('alat_medis', 'alat_medis.id_alat = barang_keluar.id_alat');
+//     $this->db->join('users', 'users.id = barang_keluar.pengguna_id');
+//     $this->db->join('unit', 'unit.id_unit = barang_keluar.id_unit');
+
+//     // Tambahkan kondisi untuk rentang tanggal dan unit
+//     if ($tanggal_awal && $tanggal_akhir) {
+//         $this->db->where('tanggal_keluar >=', $tanggal_awal);
+//         $this->db->where('tanggal_keluar <=', $tanggal_akhir);
+//     }
+//     if ($id_unit) {
+//         $this->db->where('barang_keluar.id_unit', $id_unit);
+//     }
+
+//     $query = $this->db->get();
+//     return $query->result();
+// }
+public function get_barang_keluar_with_alat_by_date_and_unit($tanggalAwal, $tanggalAkhir, $idUnit)
+{
+    $this->db->select('barang_keluar.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
+    $this->db->from('barang_keluar');
+    $this->db->join('alat_medis', 'alat_medis.id_alat = barang_keluar.id_alat');
+    $this->db->join('users', 'users.id = barang_keluar.pengguna_id');
+    $this->db->join('unit', 'unit.id_unit = barang_keluar.id_unit');
+
+    if ($tanggalAwal && $tanggalAkhir) {
+        $this->db->where('tanggal_keluar >=', $tanggalAwal);
+        $this->db->where('tanggal_keluar <=', $tanggalAkhir);
+    }
+    if ($idUnit) {
+        $this->db->where('barang_keluar.id_unit', $idUnit);
+    }
+
+    $query = $this->db->get();
+    return $query->result();
+}
+
+public function get_barang_keluar_with_alat_by_id($idBarangKeluar)
+{
+    $this->db->select('barang_keluar.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
+    $this->db->from('barang_keluar');
+    $this->db->join('alat_medis', 'alat_medis.id_alat = barang_keluar.id_alat');
+    $this->db->join('users', 'users.id = barang_keluar.pengguna_id');
+    $this->db->join('unit', 'unit.id_unit = barang_keluar.id_unit');
+
+    $this->db->where_in('id_barang_keluar', explode(',', $idBarangKeluar));
+    $query = $this->db->get();
+    return $query->result();
+}
 }

@@ -11,12 +11,12 @@ class BarangKeluar extends MY_Controller
     }
 
     public function index()
-    {
-         // Ambil bulan, tahun, dan rentang tanggal dari input GET
-         $bulan = $this->input->get('bulan');
-         $tahun = $this->input->get('tahun');
-         $tanggal_awal = $this->input->get('tanggal_awal');
-         $tanggal_akhir = $this->input->get('tanggal_akhir');
+    {         
+        // Ambil bulan, tahun, dan rentang tanggal dari input GET  
+        $bulan = $this->input->get('bulan');         
+        $tahun = $this->input->get('tahun');         
+        $tanggal_awal = $this->input->get('tanggal_awal');         
+        $tanggal_akhir = $this->input->get('tanggal_ahir');
  
         //  // Jika tidak ada filter, ambil data default berdasarkan bulan dan tahun saat ini
         //  if (!$bulan && !$tahun && !$tanggal_awal && !$tanggal_akhir) {
@@ -176,13 +176,13 @@ class BarangKeluar extends MY_Controller
     {
         // Ambil data barang keluar yang akan dihapus
         $barang_keluar = $this->BarangKeluar_model->select_by_id('barang_keluar', $id_barang_keluar);
-        $jumlah_keluar = $barang_keluar->jumlah_keluar; // Ambil jumlah yang dikeluarkan
+        $jumlah_keluar = $barang_keluar->jumlah_keluar; // Ambil jumlah yang dikekan
     
         // Hapus data barang keluar
-        $this->BarangKeluar_model->delete_barang_keluar($id_barang_keluar);
+        $this->BarangKeluar_model->delete_barang_keluar($id_barang_kr);
     
         // Update jumlah alat di tabel alat_medis
-        $this->BarangKeluar_model->update_jumlah_alat($barang_keluar->id_alat, $jumlah_keluar); // Tambah kembali jumlah alat
+        $this->BarangKeluar_model->update_jumlah_alat($barang_keluar->id_alat, $jumlah_keluar); // Tambah kembali jumllat
     
         $this->session->set_flashdata('delete', 'Data berhasil dihapus');
         redirect('BarangKeluar');
@@ -193,4 +193,51 @@ class BarangKeluar extends MY_Controller
         $merk = $this->BarangMasuk_model->get_merk($id_alat);
         echo $merk;
     }
+    public function surat_serah_terima()
+{
+    $data['title'] = 'Surat Serah Terima Barang Keluar';
+
+    // Ambil tanggal awal dan akhir dari input (misalnya dari form)
+    $tanggal_awal = $this->input->get('tanggal_awal');
+    $tanggal_akhir = $this->input->get('tanggal_akhir');
+    $id_unit = $this->input->get('id_unit');
+
+    // Ambil data barang keluar berdasarkan rentang tanggal dan unit
+    $data['barang_keluar'] = $this->BarangKeluar_model->get_barang_keluar_with_alat_by_date_and_unit($tanggal_awal, $tanggal_akhir, $id_unit);
+
+    $this->load->view('layout/head');
+    $this->load->view('layout/header', $data);
+    $this->load->view('layout/sidebar');
+    $this->load->view('barang_keluar/surat_serah_terima', $data);
+}
+
+// public function cetak_surat_serah_terima()
+// {
+//     $data['title'] = 'Cetak Surat Serah Terima Barang Keluar';
+
+//     // Ambil tanggal awal dan akhir dari input (misalnya dari form)
+//     $tanggal_awal = $this->input->get('tanggal_awal');
+//     $tanggal_akhir = $this->input->get('tanggal_akhir');
+//     $id_unit = $this->input->get('id_unit');
+
+//     // Ambil data barang keluar berdasarkan rentang tanggal dan unit
+//     $data['barang_keluar'] = $this->BarangKeluar_model->get_barang_keluar_with_alat_by_date_and_unit($tanggal_awal, $tanggal_akhir, $id_unit);
+
+//     $this->load->view('barang_keluar/cetak_surat_serah_terima', $data);
+// }
+public function get_barang_keluar_by_filter()
+{
+    $tanggalAwal = $this->input->get('tanggal_awal');
+    $tanggalAkhir = $this->input->get('tanggal_akhir');
+    $idUnit = $this->input->get('id_unit');
+    $data['barang_keluar'] = $this->BarangKeluar_model->get_barang_keluar_with_alat_by_date_and_unit($tanggalAwal, $tanggalAkhir, $idUnit);
+    $this->load->view('barang_keluar/data_barang_keluar', $data);
+}
+
+public function cetak_surat_serah_terima()
+{
+    $idBarangKeluar = $this->input->get('id_barang_keluar');
+    $data['barang_keluar'] = $this->BarangKeluar_model->get_barang_keluar_with_alat_by_id($idBarangKeluar);
+    $this->load->view('barang_keluar/cetak_surat_serah_terima', $data);
+}
 }

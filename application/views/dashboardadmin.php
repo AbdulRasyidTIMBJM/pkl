@@ -6,7 +6,7 @@
                 </div>
             <?php  } ?>
         </div>
-<main id="main" class="main" style="margin-left: 350px; transition: margin 0.5s;">
+    <main class="content-wrapper">
     <div class="row" style="margin-top: 10px;">
         <div class="col-lg-5 col-7">
             <div class="small-box bg-info" style="height: 120px;">

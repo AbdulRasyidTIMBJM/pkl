@@ -1,4 +1,4 @@
-<main id="main" class="main" style="margin-left: 250px;">
+<main class="content-wrapper"> <!-- Ganti <main> dengan <div class="content-wrapper"> -->
     <div class="card-body">
         <?php if ($this->session->flashdata('success')) { ?>
             <div class="alert alert-success alert-dismissible">
@@ -63,7 +63,7 @@
             </div>
         </div>
         <a href="<?php echo site_url('BarangMasuk/create'); ?>" class="btn btn-sm btn-success mr-2"><i class="fas fa-plus"></i> Tambah Data</a>
-        <table id="example1" id="example2" class="table table-bordered table-striped">
+        <table id="example1" class="table table-bordered table-striped"> <!-- Hapus id="example2" -->
             <thead>
                 <tr>
                     <th style="font-size: 14px;">NO</th>
@@ -78,8 +78,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php $no = 1;
-                foreach ($barang_masuk as $bm): ?>
+                <?php $no = 1; foreach ($barang_masuk as $bm): ?>
                     <tr>
                         <td><?php echo $no++; ?></td>
                         <td style="font-size: 12px;"><?php echo $bm->nama_alat; ?></td>
@@ -90,14 +89,16 @@
                         <td style="font-size: 12px;"><?php echo $bm->nama_unit; ?></td>  
                         <td style="font-size: 12px;"><?php echo $bm->status; ?></td>
                         <td>
-                            <a href="<?= base_url('BarangMasuk/edit/' . $bm->id_barang_masuk) ?> ?>" class="btn btn-sm mt-2 btn-primary">Edit</a>
+                            <a href="<?= base_url('BarangMasuk/edit/' . $bm->id_barang_masuk) ?>" class="btn btn-sm mt-2 btn-primary">Edit</a>
                             <a href="<?= base_url('BarangMasuk/delete/' . $bm->id_barang_masuk) ?>" class="btn btn-sm mt-2 btn-danger" onclick="return confirm('Yakin ingin menghapus data?')">Hapus</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
+    </div>
 </main>
+
 <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
         <b>Version</b> 3.2.0
@@ -186,5 +187,4 @@
     });
 </script>
 </body>
-
 </html>
