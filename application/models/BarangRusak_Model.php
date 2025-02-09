@@ -105,4 +105,36 @@ class BarangRusak_model extends CI_Model
         $row = $query->row();
         return $row ? $row->jumlah : 0; 
     }
+    public function get_barang_rusak_with_alat_by_date_and_unit($tanggalAwal, $tanggalAkhir, $idUnit)
+{
+    $this->db->select('barang_rusak.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
+    $this->db->from('barang_rusak');
+    $this->db->join('alat_medis', 'alat_medis.id_alat = barang_rusak.id_alat');
+    $this->db->join('users', 'users.id = barang_rusak.pengguna_id');
+    $this->db->join('unit', 'unit.id_unit = barang_rusak.id_unit');
+
+    if ($tanggalAwal && $tanggalAkhir) {
+        $this->db->where('tanggal_keluar >=', $tanggalAwal);
+        $this->db->where('tanggal_keluar <=', $tanggalAkhir);
+    }
+    if ($idUnit) {
+        $this->db->where('barang_rusak.id_unit', $idUnit);
+    }
+
+    $query = $this->db->get();
+    return $query->result();
+}
+
+public function get_barang_rusak_with_alat_by_id($idBarangKeluar)
+{
+    $this->db->select('barang_rusak.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
+    $this->db->from('barang_rusak');
+    $this->db->join('alat_medis', 'alat_medis.id_alat = barang_rusak.id_alat');
+    $this->db->join('users', 'users.id = barang_rusak.pengguna_id');
+    $this->db->join('unit', 'unit.id_unit = barang_rusak.id_unit');
+
+    $this->db->where_in('id_barang_rusak', explode(',', $idBarangKeluar));
+    $query = $this->db->get();
+    return $query->result();
+}
 }

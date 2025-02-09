@@ -43,6 +43,32 @@ class BarangMasuk_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function get_barang_masuk_with_alatbaru($bulan = null, $tahun = null, $tanggal_awal = null, $tanggal_akhir = null)
+    {
+        $this->db->select('barang_masuk.*, alat_medis.nama_alat, alat_medis.merk, users.nama, supplier.nama_toko');
+        $this->db->from('barang_masuk');
+        $this->db->join('alat_medis', 'alat_medis.id_alat = barang_masuk.id_alat');
+        $this->db->join('users', 'users.id = barang_masuk.pengguna_id');
+        $this->db->join('supplier', 'supplier.id_supplier = barang_masuk.id_supplier');
+
+        // Filter berdasarkan bulan dan tahun
+        if ($bulan) {
+            $this->db->where('MONTH(tanggal_masuk)', $bulan);
+        }
+        if ($tahun) {
+            $this->db->where('YEAR(tanggal_masuk)', $tahun);
+        }
+        // Filter berdasarkan rentang tanggal
+        if ($tanggal_awal) {
+            $this->db->where('tanggal_masuk >=', $tanggal_awal);
+        }
+        if ($tanggal_akhir) {
+            $this->db->where('tanggal_masuk <=', $tanggal_akhir);
+        }
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
     public function get_all_alat_medis()
     {
         return $this->db->get('alat_medis')->result();
@@ -50,6 +76,10 @@ class BarangMasuk_model extends CI_Model
     public function get_all_unit()
     {
         return $this->db->get('unit')->result();
+    }
+    public function get_all_supplier()
+    {
+        return $this->db->get('supplier')->result();
     }
     public function select_by_id($tabel, $id_barang_masuk)
     {

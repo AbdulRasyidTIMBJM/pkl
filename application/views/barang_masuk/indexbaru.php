@@ -32,7 +32,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="GET" action="<?php echo site_url('BarangMasuk/index'); ?>">
+                        <form method="GET" action="<?php echo site_url('BarangMasuk/indexbaru'); ?>">
                             <div class="form-group">
                                 <label for="bulan">Bulan</label>
                                 <select name="bulan" class="form-control" id="bulan">
@@ -62,24 +62,23 @@
                 </div>
             </div>
         </div>
-        <a href="<?php echo site_url('BarangMasuk/create'); ?>" class="btn btn-sm btn-success mr-2"><i class="fas fa-plus"></i> Tambah Data</a>
+        <a href="<?php echo site_url('BarangMasuk/createbaru'); ?>" class="btn btn-sm btn-success mr-2"><i class="fas fa-plus"></i> Tambah Data</a>
         <table id="example1" class="table table-bordered table-striped"> <!-- Hapus id="example2" -->
             <thead>
                 <tr>
                     <th style="font-size: 14px;">NO</th>
                     <th style="font-size: 14px;">Nama Alat</th>
-                    <th style="font-size: 14px;">Merk</th>
+                    <th style="font-size: 14px;">Merk</th> 
                     <th style="font-size: 14px;">Operator</th>
                     <th style="font-size: 14px;">Tanggal masuk</th>
                     <th style="font-size: 14px;">Jumlah masuk</th>
-                    <th style="font-size: 14px;">Nama Unit</th>
-                    <th style="font-size: 14px;">Status</th>
+                    <th style="font-size: 14px;">Supplier</th>
+                    <!-- <th style="font-size: 14px;">Status</th> -->
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <?php $no = 1;
-                foreach ($barang_masuk as $bm): ?>
+                <?php $no = 1; foreach ($barang_masuk as $bm): ?>
                     <tr>
                         <td><?php echo $no++; ?></td>
                         <td style="font-size: 12px;"><?php echo $bm->nama_alat; ?></td>
@@ -87,18 +86,10 @@
                         <td style="font-size: 12px;"><?php echo $bm->nama; ?></td>
                         <td style="font-size: 12px;"><?php echo $bm->tanggal_masuk; ?></td>
                         <td><?php echo $bm->jumlah_masuk; ?></td>
-                        <td style="font-size: 12px;"><?php echo $bm->nama_unit; ?></td>
+                        <td style="font-size: 12px;"><?php echo $bm->nama_toko; ?></td>  
+                        <!-- <td style="font-size: 12px;"><?php echo $bm->status; ?></td> -->
                         <td>
-                            <?php if ($bm->status == 'Sudah Disterilkan') { ?>
-                                <span class="badge badge-success"><?= $bm->status ?></span>
-                            <?php } elseif ($bm->status == 'belum Disterilkan') { ?>
-                                <span class="badge badge-warning"><?= $bm->status ?></span>
-                            <?php } else { ?>
-                                <span class="badge badge-danger"><?= $bm->status ?></span>
-                            <?php } ?>
-                        </td>
-                        <td>
-                            <a href="<?= base_url('BarangMasuk/edit/' . $bm->id_barang_masuk) ?>" class="btn btn-sm mt-2 btn-primary">Edit</a>
+                            <a href="<?= base_url('BarangMasuk/editbaru/' . $bm->id_barang_masuk) ?>" class="btn btn-sm mt-2 btn-primary">Edit</a>
                             <a href="<?= base_url('BarangMasuk/delete/' . $bm->id_barang_masuk) ?>" class="btn btn-sm mt-2 btn-danger" onclick="return confirm('Yakin ingin menghapus data?')">Hapus</a>
                         </td>
                     </tr>
@@ -160,34 +151,34 @@
             "info": true,
             "columnDefs": [{
                 "orderable": false,
-                "targets": 8
+                "targets": 7
             }],
             "dom": '<"row"<"col-md-4"l><"col-md-4 text-center"B><"col-md-4 text-right"f>>rtip',
             "buttons": [{
                     extend: 'pdf',
-                    title: 'Data Barang Masuk',
+                    title: 'Data Barang Masuk Baru',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                        columns: [0, 1, 2, 3, 4, 5, 6]
                     },
                     className: 'btn btn-sm btn-success mr-2 mt-2'
                 },
                 {
                     extend: 'excel',
-                    title: 'Data Barang Masuk',
+                    title: 'Data Barang Masuk Baru',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                        columns: [0, 1, 2, 3, 4, 5, 6]
                     },
                     className: 'btn btn-sm btn-success mr-2 mt-2'
                 },
                 {
                     extend: 'print',
-                    title: 'Data Barang Masuk',
+                    title: 'Data Barang Masuk Baru',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                        columns: [0, 1, 2, 3, 4, 5, 6]
                     },
                     action: function(e, dt, button, config) {
                         // Ganti URL dengan URL halaman print Anda
-                        window.open('<?php echo site_url('BarangMasuk/reprint'); ?>', '_blank');
+                        window.open('<?php echo site_url('BarangMasuk/reprintbaru'); ?>', '_blank');
                     },
                     className: 'btn btn-sm btn-success mr-2 mt-2'
                 }
@@ -196,5 +187,4 @@
     });
 </script>
 </body>
-
 </html>

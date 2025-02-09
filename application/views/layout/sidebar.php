@@ -42,7 +42,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('BarangMasuk/'); ?>" class="nav-link">
+                            <a href="<?= base_url('BarangMasuk/indexbaru'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Barang Baru</p>
                             </a>

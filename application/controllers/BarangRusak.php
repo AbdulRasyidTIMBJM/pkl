@@ -87,7 +87,7 @@ class BarangRusak extends MY_Controller
             'id_merk' => $this->input->post('id_alat'),
             'pengguna_id' => $this->session->userdata('id'), // Ambil user_id dari session secara otomatis
         ];
-        // Simpan data barang keluar
+        // Simpan data Barang Rusak
         $this->BarangRusak_model->insert_barang_rusak($data);
 
         // Update jumlah alat di tabel alat_medis
@@ -110,7 +110,7 @@ class BarangRusak extends MY_Controller
             $this->session->set_flashdata('error', validation_errors());
             redirect('BarangRusak/edit/' . $id_barang_rusak);
         } else {
-            // Ambil data barang keluar yang ada
+            // Ambil data Barang Rusak yang ada
             $barang_rusak = $this->BarangRusak_model->select_by_id('barang_rusak', $id_barang_rusak);
             $jumlah_sebelumnya = $barang_rusak->jumlah_rusak; // Ambil jumlah sebelumnya
 
@@ -125,7 +125,7 @@ class BarangRusak extends MY_Controller
 
             if ($selisih > $jumlah_tersedia) {
                 $this->session->set_flashdata('error', 'Jumlah keluar melebihi jumlah yang tersedia');
-                redirect('BarangKeluar/edit/' . $id_barang_rusak);
+                redirect('BarangRusak/edit/' . $id_barang_rusak);
             }
             $data = array(
                 'id_alat' => $id_alat,
@@ -169,11 +169,11 @@ class BarangRusak extends MY_Controller
 
     public function delete($id_barang_rusak)
     {
-        // Ambil data barang keluar yang akan dihapus
+        // Ambil data Barang Rusak yang akan dihapus
         $barang_rusak = $this->BarangRusak_model->select_by_id('barang_rusak', $id_barang_rusak);
         $jumlah_rusak = $barang_rusak->jumlah_rusak; // Ambil jumlah yang dikeluarkan
     
-        // Hapus data barang keluar
+        // Hapus data Barang Rusak
         $this->BarangRusak_model->delete_barang_rusak($id_barang_rusak);
     
         // Update jumlah alat di tabel alat_medis
@@ -188,4 +188,37 @@ class BarangRusak extends MY_Controller
         $merk = $this->BarangMasuk_model->get_merk($id_alat);
         echo $merk;
     }
+    public function surat_serah_terima()
+{
+    $data['title'] = 'Surat Serah Terima Barang Rusak';
+
+    // Ambil tanggal awal dan akhir dari input (misalnya dari form)
+    $tanggal_awal = $this->input->get('tanggal_awal');
+    $tanggal_akhir = $this->input->get('tanggal_akhir');
+    $id_unit = $this->input->get('id_unit');
+
+    // Ambil data Barang Rusak berdasarkan rentang tanggal dan unit
+    $data['barang_rusak'] = $this->BarangRusak_model->get_barang_rusak_with_alat_by_date_and_unit($tanggal_awal, $tanggal_akhir, $id_unit);
+
+    $this->load->view('layout/head');
+    $this->load->view('layout/header', $data);
+    $this->load->view('layout/sidebar');
+    $this->load->view('barang_rusak/surat_serah_terima', $data);
+}
+
+public function get_barang_rusak_by_filter()
+{
+    $tanggalAwal = $this->input->get('tanggal_awal');
+    $tanggalAkhir = $this->input->get('tanggal_akhir');
+    $idUnit = $this->input->get('id_unit');
+    $data['barang_rusak'] = $this->BarangRusak_model->get_barang_rusak_with_alat_by_date_and_unit($tanggalAwal, $tanggalAkhir, $idUnit);
+    $this->load->view('barang_rusak/data_barang_rusak', $data);
+}
+
+public function cetak_surat_serah_terima()
+{
+    $idBarangRusak = $this->input->get('id_barang_rusak');
+    $data['barang_rusak'] = $this->BarangRusak_model->get_barang_rusak_with_alat_by_id($idBarangRusak);
+    $this->load->view('barang_rusak/cetak_surat_serah_terima', $data);
+}
 }
