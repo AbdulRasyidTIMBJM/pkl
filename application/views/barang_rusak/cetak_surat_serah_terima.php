@@ -90,7 +90,7 @@
         <hr>
     </div>
 
-    <h2 style="text-align: center;">Surat Serah Terima Barang Keluar</h2>
+    <h2 style="text-align: center;">Surat Serah Terima Barang Rusak</h2>
     <div class="row">
         <div class="col-md-6">
             <h4>PIHAK PERTAMA</h4>
@@ -111,6 +111,7 @@
                 <th>Tanggal Rusak</th>
                 <th>Nama Alat</th>
                 <th>Merk</th>
+                <th>Jumlah</th>
                 <th>Nama Unit</th>
                 <th>Keterangan</th>
             </tr>
@@ -122,6 +123,7 @@
                 <td><?= date('d-m-Y', strtotime($bk->tanggal_rusak)) ?></td>
                 <td><?= $bk->nama_alat ?></td>
                 <td><?= $bk->merk ?></td>
+                <td><?= $bk->jumlah_rusak ?></td>
                 <td><?= $bk->nama_unit ?></td>
                 <td class="small-text"><?php echo $bk->alasan; ?></td>
             </tr>

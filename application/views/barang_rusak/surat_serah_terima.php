@@ -1,6 +1,6 @@
 <main class="content-wrapper">
     <div class="container">
-        <h2>Surat Serah Terima Barang Keluar</h2>
+        <h2>Surat Serah Terima Barang Rusak</h2>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal">Filter Data</button>
         <button type="button" class="btn btn-primary" id="cetakSurat">Cetak Surat</button>
         <table class="table table-striped">

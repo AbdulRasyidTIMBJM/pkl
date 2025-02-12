@@ -24,6 +24,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= base_url('Supplier/user'); ?>" class="nav-link">
+                        <i class="nav-icon fas fa-truck"></i>
+                        <p>Supplier</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= base_url('Alat'); ?>" class="nav-link">
                         <i class="nav-icon fas fa-wrench"></i>
                         <p>Alat</p>
@@ -45,6 +51,12 @@
                             <a href="<?= base_url('BarangMasuk/indexbaru'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Barang Baru</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('BarangMasuk/surat'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Buat Surat Perminataan Barang Baru</p>
                             </a>
                         </li>
                     </ul>

@@ -20,10 +20,10 @@ class BarangRusak_model extends CI_Model
     public function get_barang_rusak_with_alat($bulan = null, $tahun = null, $tanggal_awal = null, $tanggal_akhir = null)
     {
         // Melakukan join antara tabel barang_rusak dan alat
-        $this->db->select('barang_rusak.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
+        $this->db->select('barang_rusak.*, alat_medis.nama_alat, alat_medis.merk, karyawan.nama, unit.nama_unit');
         $this->db->from('barang_rusak');
         $this->db->join('alat_medis', 'alat_medis.id_alat = barang_rusak.id_alat');
-        $this->db->join('users', 'users.id = barang_rusak.pengguna_id');
+        $this->db->join('karyawan', 'karyawan.id = barang_rusak.pengguna_id');
         $this->db->join('unit', 'unit.id_unit = barang_rusak.id_unit');
         // Filter berdasarkan bulan dan tahun
         if ($bulan) {
@@ -57,10 +57,10 @@ class BarangRusak_model extends CI_Model
         return $query;
     }
     public function get_barang_rusak_with_alat_by_date($tanggal_awal, $tanggal_akhir) {
-        $this->db->select('barang_rusak.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
+        $this->db->select('barang_rusak.*, alat_medis.nama_alat, alat_medis.merk, karyawan.nama, unit.nama_unit');
         $this->db->from('barang_rusak');
         $this->db->join('alat_medis', 'alat_medis.id_alat = barang_rusak.id_alat');
-        $this->db->join('users', 'users.id = barang_rusak.pengguna_id');
+        $this->db->join('karyawan', 'karyawan.id = barang_rusak.pengguna_id');
         $this->db->join('unit', 'unit.id_unit = barang_rusak.id_unit');
         
         // Tambahkan kondisi untuk rentang tanggal
@@ -107,10 +107,10 @@ class BarangRusak_model extends CI_Model
     }
     public function get_barang_rusak_with_alat_by_date_and_unit($tanggalAwal, $tanggalAkhir, $idUnit)
 {
-    $this->db->select('barang_rusak.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
+    $this->db->select('barang_rusak.*, alat_medis.nama_alat, alat_medis.merk, karyawan.nama, unit.nama_unit');
     $this->db->from('barang_rusak');
     $this->db->join('alat_medis', 'alat_medis.id_alat = barang_rusak.id_alat');
-    $this->db->join('users', 'users.id = barang_rusak.pengguna_id');
+    $this->db->join('karyawan', 'karyawan.id = barang_rusak.pengguna_id');
     $this->db->join('unit', 'unit.id_unit = barang_rusak.id_unit');
 
     if ($tanggalAwal && $tanggalAkhir) {
@@ -127,10 +127,10 @@ class BarangRusak_model extends CI_Model
 
 public function get_barang_rusak_with_alat_by_id($idBarangKeluar)
 {
-    $this->db->select('barang_rusak.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
+    $this->db->select('barang_rusak.*, alat_medis.nama_alat, alat_medis.merk, karyawan.nama, unit.nama_unit');
     $this->db->from('barang_rusak');
     $this->db->join('alat_medis', 'alat_medis.id_alat = barang_rusak.id_alat');
-    $this->db->join('users', 'users.id = barang_rusak.pengguna_id');
+    $this->db->join('karyawan', 'karyawan.id = barang_rusak.pengguna_id');
     $this->db->join('unit', 'unit.id_unit = barang_rusak.id_unit');
 
     $this->db->where_in('id_barang_rusak', explode(',', $idBarangKeluar));

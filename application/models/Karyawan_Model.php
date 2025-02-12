@@ -10,12 +10,12 @@ class Karyawan_model extends CI_Model
 
     public function insert_users($data)
     {
-        return $this->db->insert('users', $data);
+        return $this->db->insert('karyawan', $data);
     }
 
     public function select_all()
     {
-        return $this->db->get('users')->result();
+        return $this->db->get('karyawan')->result();
     }
 
     public function select_by_id($tabel, $id)
@@ -28,11 +28,11 @@ class Karyawan_model extends CI_Model
     public function update($id, $data)
     {
         $this->db->where('id', $id);
-        $this->db->update('users', $data);
+        $this->db->update('karyawan', $data);
     }
 
     public function delete_users($id)
     {
-        return $this->db->delete('users', ['id' => $id]);
+        return $this->db->delete('karyawan', ['id' => $id]);
     }
 }

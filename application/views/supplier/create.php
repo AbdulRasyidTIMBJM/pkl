@@ -17,40 +17,17 @@
                             <h6><i class="icon fas fa-exclamation-triangle"></i> <?= $this->session->flashdata('error') ?> </h6>
                         </div>
                     <?php } ?>
-                    <form action="<?php echo site_url('Karyawan/store/') ?>" method="post">
+                    <form action="<?php echo site_url('Supplier/store/') ?>" method="post">
                         <div class="form-group">
-                            <label for="username">Username:</label>
-                            <input type="text" name="username" id="username" class="form-control" required>
-                            <?php echo form_error('username'); ?>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password:</label>
-                            <input type="password" name="password" id="password" class="form-control" required>
-                            <?php echo form_error('password'); ?>
-                        </div>
-                        <div class="form-group">
-                            <label for="nama">Nama:</label>
-                            <input type="text" name="nama" id="nama" class="form-control" required>
-                            <?php echo form_error('nama'); ?>
-                        </div>
-                        <div class="form-group">
-                            <label for="nomor_telepon">Nomor Telepon:</label>
-                            <input type="number" name="nomor_telepon" id="nomor_telepon" class="form-control" required>
-                            <?php echo form_error('nomor_telepon'); ?>
+                            <label for="nama_toko">Nama Toko:</label>
+                            <input type="text" name="nama_toko" id="nama_toko" class="form-control" required>
+                            <?php echo form_error('nama_toko'); ?>
                         </div>
                         <div class="form-group">
                             <label for="alamat">Alamat:</label>
                             <input type="text" name="alamat" id="alamat" class="form-control" required>
                             <?php echo form_error('alamat'); ?>
                         </div>
-                        <div class="form-group">
-                            <label for="level">Level:</label>
-                            <select name="level" id="level" class="form-control" required>
-                                <option value="">Pilih Level</option>
-                                <option value="1">Admin</option>
-                                <option value="2">User</option>
-                            </select>
-                            <?php echo form_error('level'); ?>
                             <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>

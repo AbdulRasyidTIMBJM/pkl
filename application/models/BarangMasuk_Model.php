@@ -19,10 +19,10 @@ class BarangMasuk_model extends CI_Model
     }
     public function get_barang_masuk_with_alat($bulan = null, $tahun = null, $tanggal_awal = null, $tanggal_akhir = null)
     {
-        $this->db->select('barang_masuk.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
+        $this->db->select('barang_masuk.*, alat_medis.nama_alat, alat_medis.merk, karyawan.nama, unit.nama_unit');
         $this->db->from('barang_masuk');
         $this->db->join('alat_medis', 'alat_medis.id_alat = barang_masuk.id_alat');
-        $this->db->join('users', 'users.id = barang_masuk.pengguna_id');
+        $this->db->join('karyawan', 'karyawan.id = barang_masuk.pengguna_id');
         $this->db->join('unit', 'unit.id_unit = barang_masuk.id_unit');
 
         // Filter berdasarkan bulan dan tahun
@@ -45,10 +45,10 @@ class BarangMasuk_model extends CI_Model
     }
     public function get_barang_masuk_with_alatbaru($bulan = null, $tahun = null, $tanggal_awal = null, $tanggal_akhir = null)
     {
-        $this->db->select('barang_masuk.*, alat_medis.nama_alat, alat_medis.merk, users.nama, supplier.nama_toko');
+        $this->db->select('barang_masuk.*, alat_medis.nama_alat, alat_medis.merk, karyawan.nama, supplier.nama_toko');
         $this->db->from('barang_masuk');
         $this->db->join('alat_medis', 'alat_medis.id_alat = barang_masuk.id_alat');
-        $this->db->join('users', 'users.id = barang_masuk.pengguna_id');
+        $this->db->join('karyawan', 'karyawan.id = barang_masuk.pengguna_id');
         $this->db->join('supplier', 'supplier.id_supplier = barang_masuk.id_supplier');
 
         // Filter berdasarkan bulan dan tahun
@@ -96,10 +96,10 @@ class BarangMasuk_model extends CI_Model
 
     public function get_barang_masuk_with_alat_by_date($tanggal_awal, $tanggal_akhir)
     {
-        $this->db->select('barang_masuk.*, alat_medis.nama_alat, alat_medis.merk, users.nama, unit.nama_unit');
+        $this->db->select('barang_masuk.*, alat_medis.nama_alat, alat_medis.merk, karyawan.nama, unit.nama_unit');
         $this->db->from('barang_masuk');
         $this->db->join('alat_medis', 'alat_medis.id_alat = barang_masuk.id_alat');
-        $this->db->join('users', 'users.id = barang_masuk.pengguna_id');
+        $this->db->join('karyawan', 'karyawan.id = barang_masuk.pengguna_id');
         $this->db->join('unit', 'unit.id_unit = barang_masuk.id_unit');
 
         // Tambahkan kondisi untuk rentang tanggal
@@ -129,4 +129,64 @@ class BarangMasuk_model extends CI_Model
         $row = $query->row();
         return $row->merk;
     }
+    public function get_barang_masuk_with_alat_by_date_and_supplier($tanggalAwal, $tanggalAkhir, $idSupplier)
+{
+    $this->db->select('barang_masuk.*, alat_medis.nama_alat, alat_medis.merk, karyawan.nama, supplier.nama_toko');
+    $this->db->from('barang_masuk');
+    $this->db->join('alat_medis', 'alat_medis.id_alat = barang_masuk.id_alat');
+    $this->db->join('karyawan', 'karyawan.id = barang_masuk.pengguna_id');
+    $this->db->join('supplier', 'supplier.id_supplier = barang_masuk.id_supplier');
+
+    if ($tanggalAwal && $tanggalAkhir) {
+        $this->db->where('tanggal_keluar >=', $tanggalAwal);
+        $this->db->where('tanggal_keluar <=', $tanggalAkhir);
+    }
+    if ($idSupplier) {
+        $this->db->where('barang_masuk.id_supplier', $idSupplier);
+    }
+
+    $query = $this->db->get();
+    return $query->result();
 }
+
+public function get_barang_masuk_with_alat_by_id($idBarangMasuk)
+{
+    $this->db->select('barang_masuk.*, alat_medis.nama_alat, alat_medis.merk, karyawan.nama, supplier.nama_toko');
+    $this->db->from('barang_masuk');
+    $this->db->join('alat_medis', 'alat_medis.id_alat = barang_masuk.id_alat');
+    $this->db->join('karyawan', 'karyawan.id = barang_masuk.pengguna_id');
+    $this->db->join('supplier', 'supplier.id_supplier = barang_masuk.id_supplier');
+
+    $this->db->where_in('id_barang_masuk', explode(',', $idBarangMasuk));
+    $query = $this->db->get();
+    return $query->result();
+}
+    public function get_verified_barang_masuk($bulan = null, $tahun = null, $tanggal_awal = null, $tanggal_akhir = null) {
+        $this->db->select('barang_masuk.*, alat_medis.nama_alat, alat_medis.merk, karyawan.nama, alat_medis.spesifikasi, supplier.nama_toko');
+        $this->db->from('barang_masuk');
+        $this->db->join('alat_medis', 'alat_medis.id_alat = barang_masuk.id_alat');
+        $this->db->join('karyawan', 'karyawan.id = barang_masuk.pengguna_id');
+        $this->db->join('supplier', 'supplier.id_supplier = barang_masuk.id_supplier');
+        $this->db->where('barang_masuk.status', 'verified');
+
+        // Filter berdasarkan bulan dan tahun
+        if ($bulan) {
+            $this->db->where('MONTH(tanggal_masuk)', $bulan);
+        }
+        if ($tahun) {
+            $this->db->where('YEAR(tanggal_masuk)', $tahun);
+        }
+        // Filter berdasarkan rentang tanggal
+        if ($tanggal_awal) {
+            $this->db->where('tanggal_masuk >=', $tanggal_awal);
+        }
+        if ($tanggal_akhir) {
+            $this->db->where('tanggal_masuk <=', $tanggal_akhir);
+        }
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+}
+

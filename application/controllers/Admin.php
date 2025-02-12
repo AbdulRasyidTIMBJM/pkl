@@ -14,6 +14,11 @@ class Admin extends MY_Controller
 		];
         $data['total_unit'] = $this->Dashboardadmin_model->get_total_unit();
         $data['total_karyawan'] = $this->Dashboardadmin_model->get_total_karyawan();
+        $data['total_supplier'] = $this->Dashboardadmin_model->get_total_supplier();
+        $data['total_alat'] = $this->Dashboardadmin_model->get_total_alat();
+        $data['total_bm'] = $this->Dashboardadmin_model->get_total_barang_masuk();
+        $data['total_bk'] = $this->Dashboardadmin_model->get_total_barang_keluar();
+        $data['total_br'] = $this->Dashboardadmin_model->get_total_barang_rusak();
         $this->load->view('layout/head');
         $this->load->view('layout/headeradmin', $data);
         $this->load->view('layout/sidebaradmin');

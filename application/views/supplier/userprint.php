@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,7 +55,8 @@
             margin-top: 20px;
         }
 
-        table th, table td {
+        table th,
+        table td {
             border: 1px solid black;
             padding: 8px;
             text-align: center;
@@ -65,6 +67,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Kop Surat -->
     <div id="kopSurat">
@@ -83,23 +86,21 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-            <th>NO</th>
-          <th>Nama</th>
-          <th>Nomor Telepon</th>
-          <th>Alamat</th>
+                <th>NO</th>
+                <th>Nama Toko</th>
+                <th>Alamat</th>
             </tr>
         </thead>
-       <tbody>
-    <?php $no = 1; 
-    foreach ($karyawan as $u): ?>
-        <tr>
-            <td><?php echo $no++; ?></td>
-            <td><?php echo $u->nama; ?></td>
-            <td><?php echo $u->nomor_telepon; ?></td>
-            <td><?php echo $u->alamat; ?></td>
-        </tr>
-    <?php endforeach; ?>
-</tbody>
+        <tbody>
+            <?php $no = 1;
+            foreach ($supplier as $u): ?>
+                <tr>
+                    <td><?php echo $no++; ?></td>
+                    <td><?php echo $u->nama_toko; ?></td>
+                    <td><?php echo $u->alamat; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
         </tbody>
     </table>
 
@@ -110,4 +111,5 @@
         };
     </script>
 </body>
+
 </html>

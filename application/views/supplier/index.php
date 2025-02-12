@@ -33,15 +33,8 @@
             <td><?php echo $u->nama_toko; ?></td>
             <td><?php echo $u->alamat; ?></td>
             <td>
-  <?php if ($u->level == 1) : ?>
-    Admin
-  <?php elseif ($u->level == 2) : ?>
-    User
-  <?php endif; ?>
-</td>
-            <td>
-              <a href="<?= base_url('supplier/edit/' . $u->id) ?> ?>" class="btn btn-sm btn-primary">Edit</a>
-              <a href="<?= base_url('supplier/delete/' . $u->id) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data?')">Hapus</a>
+              <a href="<?= base_url('supplier/edit/' . $u->id_supplier) ?> ?>" class="btn btn-sm btn-primary">Edit</a>
+              <a href="<?= base_url('supplier/delete/' . $u->id_supplier) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data?')">Hapus</a>
             </td>
           </tr>
         <?php endforeach; ?>

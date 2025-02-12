@@ -17,40 +17,16 @@
                             <h6><i class="icon fas fa-exclamation-triangle"></i> <?= $this->session->flashdata('error') ?> </h6>
                         </div>
                     <?php } ?>
-                    <form action="<?php echo site_url('Karyawan/update/' . $karyawan->id); ?>" method="post">
+                    <form action="<?php echo site_url('Supplier/update/' . $supplier->id_supplier); ?>" method="post">
                         <div class="form-group">
-                            <label for="username">Username:</label>
-                            <input type="text" name="username" id="username" class="form-control" value="<?php echo $karyawan->username; ?>" required>
-                            <?php echo form_error('username'); ?>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password:</label>
-                            <input type="password" name="password" id="password" class="form-control" value="<?php echo $karyawan->password; ?>" required>
-                            <?php echo form_error('password'); ?>
-                        </div>
-                        <div class="form-group">
-                            <label for="nama">Nama:</label>
-                            <input type="text" name="nama" id="nama" class="form-control" value="<?php echo $karyawan->nama; ?>" required>
-                            <?php echo form_error('nama'); ?>
-                        </div>
-                        <div class="form-group">
-                            <label for="nomor_telepon">Nomor Telepon:</label>
-                            <input type="number" name="nomor_telepon" id="nomor_telepon" class="form-control" value="<?php echo $karyawan->nomor_telepon; ?>" required>
-                            <?php echo form_error('nomor_telepon'); ?>
+                            <label for="nama_toko">Nama Toko :</label>
+                            <input type="text" name="nama_toko" id="nama_toko" class="form-control" value="<?php echo $supplier->nama_toko; ?>" required>
+                            <?php echo form_error('nama_toko'); ?>
                         </div>
                         <div class="form-group">
                             <label for="alamat">Alamat:</label>
-                            <input type="text" name="alamat" id="alamat" class="form-control" value="<?php echo $karyawan->alamat; ?>" required>
+                            <input type="text" name="alamat" id="alamat" class="form-control" value="<?php echo $supplier->alamat; ?>" required>
                             <?php echo form_error('alamat'); ?>
-                        </div>
-                        <div class="form-group">
-                            <label for="level">Level:</label>
-                            <select name="level" id="level" class="form-control" required>
-                                <option value="">Pilih Level</option>
-                                <option value="1" <?php if ($karyawan->level == 1) echo 'selected'; ?>>Admin</option>
-                                <option value="2" <?php if ($karyawan->level == 2) echo 'selected'; ?>>User</option>
-                            </select>
-                            <?php echo form_error('level'); ?>
                             <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>

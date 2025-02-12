@@ -112,6 +112,7 @@
                 <th>Tanggal Keluar</th>
                 <th>Nama Alat</th>
                 <th>Merk</th>
+                <th>Jumlah</th>
                 <th>Nama Unit</th>
             </tr>
         </thead>
@@ -122,6 +123,7 @@
                 <td><?= date('d-m-Y', strtotime($bk->tanggal_keluar)) ?></td>
                 <td><?= $bk->nama_alat ?></td>
                 <td><?= $bk->merk ?></td>
+                <td><?= $bk->jumlah_keluar ?></td>
                 <td><?= $bk->nama_unit ?></td>
             </tr>
             <?php endforeach; ?>

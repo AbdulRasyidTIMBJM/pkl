@@ -9,7 +9,7 @@ class m_login extends CI_Model
         $password = $this->input->post('password');
 
         $this->db->where('username', $username);
-        $user = $this->db->get('users')->row_array();
+        $user = $this->db->get('karyawan')->row_array();
 
         if ($user && password_verify($password, $user['password'])) {
             return $user; // Return data pengguna jika login berhasil
@@ -29,7 +29,7 @@ class m_login extends CI_Model
 //         $username = $this->input->post('username');
 //         $password = $this->input->post('password');
 
-//         return $this->db->get_where('users', array('username' => $username, 'password' => $password))->row_array();
+//         return $this->db->get_where('karyawan', array('username' => $username, 'password' => $password))->row_array();
 //     }
 
 // };
