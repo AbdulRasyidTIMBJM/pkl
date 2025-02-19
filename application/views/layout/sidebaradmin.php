@@ -2,7 +2,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <a href="<?= base_url('admin'); ?>" class="brand-link">
           <img src="<?= base_url('assets/dist/img/AdminLTELogo.png'); ?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-          <span class="brand-text font-weight-light">AdminLTE 3</span>
+          <span class="brand-text font-weight-light">Admin</span>
       </a>
 
       <div class="sidebar">
@@ -36,7 +36,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                    <a href="<?= base_url('Alat'); ?>" class="nav-link">
+                    <a href="<?= base_url('Alatadmin'); ?>" class="nav-link">
                         <i class="nav-icon fas fa-wrench"></i>
                         <p>Alat</p>
                     </a>
@@ -48,19 +48,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('BarangMasuk'); ?>" class="nav-link">
+                            <a href="<?= base_url('BarangMasukadmin'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Barang Lama</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('BarangMasuk/indexbaru'); ?>" class="nav-link">
+                            <a href="<?= base_url('BarangMasukadmin/indexbaru'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Barang Baru</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('BarangMasuk/surat'); ?>" class="nav-link">
+                            <a href="<?= base_url('BarangMasukadmin/surat'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Buat Surat Perminataan Barang Baru</p>
                             </a>
@@ -74,13 +74,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('BarangKeluar'); ?>" class="nav-link">
+                            <a href="<?= base_url('BarangKeluaradmin'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tabel Data</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('BarangKeluar/surat_serah_terima'); ?>" class="nav-link">
+                            <a href="<?= base_url('BarangKeluaradmin/surat_serah_terima'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Buat Surat</p>
                             </a>
@@ -94,13 +94,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('BarangRusak'); ?>" class="nav-link">
+                            <a href="<?= base_url('BarangRusakadmin'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tabel Data</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('BarangRusak/surat_serah_terima'); ?>" class="nav-link">
+                            <a href="<?= base_url('BarangRusakadmin/surat_serah_terima'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Buat Surat</p>
                             </a>

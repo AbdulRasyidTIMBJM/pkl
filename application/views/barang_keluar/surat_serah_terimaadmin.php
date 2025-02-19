@@ -155,7 +155,7 @@
             var idUnit = $('select[name="id_unit"]').val();
             $.ajax({
                 type: 'GET',
-                url: '<?= base_url('BarangKeluar/get_barang_keluar_by_filter') ?>',
+                url: '<?= base_url('BarangKeluaradmin/get_barang_keluar_by_filter') ?>',
                 data: {
                     tanggal_awal: tanggalAwal,
                     tanggal_akhir: tanggalAkhir,
@@ -178,7 +178,7 @@
             $('input[name="id_barang_keluar[]"]:checked').each(function() {
                 idBarangKeluar.push($(this).val());
             });
-            window.location.href = '<?= base_url('BarangKeluar/cetak_surat_serah_terima') ?>?id_barang_keluar=' + idBarangKeluar.join(',') + '&nama_pihak_pertama=' + namaPihakPertama + '&jabatan_pihak_pertama=' + jabatanPihakPertama + '&nama_pihak_kedua=' + namaPihakKedua + '&jabatan_pihak_kedua=' + jabatanPihakKedua;
+            window.location.href = '<?= base_url('BarangKeluaradmin/cetak_surat_serah_terima') ?>?id_barang_keluar=' + idBarangKeluar.join(',') + '&nama_pihak_pertama=' + namaPihakPertama + '&jabatan_pihak_pertama=' + jabatanPihakPertama + '&nama_pihak_kedua=' + namaPihakKedua + '&jabatan_pihak_kedua=' + jabatanPihakKedua;
         }); 
 
         $("#example1").DataTable({

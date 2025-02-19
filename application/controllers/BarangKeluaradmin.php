@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class BarangKeluar extends MY_Controller
+class BarangKeluaradmin extends MY_Controller
 {
     public function __construct()
     {
@@ -27,9 +27,9 @@ class BarangKeluar extends MY_Controller
         $data['barang_keluar'] = $this->BarangKeluar_model->get_barang_keluar_with_alat($bulan, $tahun, $tanggal_awal, $tanggal_akhir); // Mengambil data barang keluar dengan nama alat
         $data['title'] = 'Data Barang Keluar';
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
-        $this->load->view('barang_keluar/index', $data); // Memuat view dan mengirimkan data
+        $this->load->view('layout/headeradmin', $data);
+        $this->load->view('layout/sidebaradmin');
+        $this->load->view('barang_keluar/indexadmin', $data); // Memuat view dan mengirimkan data
     }
 
     public function create()
@@ -38,9 +38,9 @@ class BarangKeluar extends MY_Controller
         $data['alat_medis'] = $this->BarangKeluar_model->get_all_alat_medis(); // Ambil semua alat medis untuk dropdown
         $data['unit'] = $this->BarangKeluar_model->get_all_unit();
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
-        $this->load->view('barang_keluar/create', $data);
+        $this->load->view('layout/headeradmin', $data);
+        $this->load->view('layout/sidebaradmin');
+        $this->load->view('barang_keluar/createadmin', $data);
     }
 
     public function edit($id_barang_keluar)
@@ -52,9 +52,9 @@ class BarangKeluar extends MY_Controller
         $data['unit'] = $this->BarangKeluar_model->get_all_unit();
         $data['title'] = 'Edit Barang Keluar';
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
-        $this->load->view('barang_keluar/edit', $data);
+        $this->load->view('layout/headeradmin', $data);
+        $this->load->view('layout/sidebaradmin');
+        $this->load->view('barang_keluar/editadmin', $data);
     }
 
     public function store()
@@ -67,7 +67,7 @@ class BarangKeluar extends MY_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', validation_errors());
-            redirect('BarangKeluar/create');
+            redirect('BarangKeluaradmin/createadmin');
         } else {
             $id_alat = $this->input->post('id_alat');
             $jumlah_keluar = $this->input->post('jumlah_keluar');
@@ -77,7 +77,7 @@ class BarangKeluar extends MY_Controller
 
             if ($jumlah_keluar > $jumlah_tersedia) {
                 $this->session->set_flashdata('error', 'Jumlah keluar melebihi jumlah yang tersedia');
-                redirect('BarangKeluar/create');
+                redirect('BarangKeluaradmin/createadmin');
             }
 
             $data = [
@@ -98,7 +98,7 @@ class BarangKeluar extends MY_Controller
             $this->BarangKeluar_model->update_jumlah_alat($id_alat, -$jumlah_keluar); // Kurangi jumlah alat
 
             $this->session->set_flashdata('success', 'Data berhasil disimpan');
-            redirect('BarangKeluar');
+            redirect('BarangKeluaradmin');
         }
     }
 
@@ -112,7 +112,7 @@ class BarangKeluar extends MY_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', validation_errors());
-            redirect('BarangKeluar/edit/' . $id_barang_keluar);
+            redirect('BarangKeluaradmin/edit/' . $id_barang_keluar);
         } else {
             // Ambil data barang keluar yang ada
             $barang_keluar = $this->BarangKeluar_model->select_by_id('barang_keluar', $id_barang_keluar);
@@ -129,7 +129,7 @@ class BarangKeluar extends MY_Controller
 
             if ($selisih > $jumlah_tersedia) {
                 $this->session->set_flashdata('error', 'Jumlah keluar melebihi jumlah yang tersedia');
-                redirect('BarangKeluar/edit/' . $id_barang_keluar);
+                redirect('BarangKeluaradmin/edit/' . $id_barang_keluar);
             }
 
             $data = array(
@@ -147,7 +147,7 @@ class BarangKeluar extends MY_Controller
 
             $this->BarangKeluar_model->update($id_barang_keluar, $data);
             $this->session->set_flashdata('success', 'Data berhasil diupdate');
-            redirect('BarangKeluar');
+            redirect('BarangKeluaradmin');
         }
     }
     public function print()
@@ -166,9 +166,9 @@ class BarangKeluar extends MY_Controller
         $data['title'] = 'Cetak Data Barang Keluar';
 
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
-        $this->load->view('barang_keluar/reprint', $data);
+        $this->load->view('layout/headeradmin', $data);
+        $this->load->view('layout/sidebaradmin');
+        $this->load->view('barang_keluar/reprintadmin', $data);
         $this->load->view('layout/footer');
     }
 
@@ -185,7 +185,7 @@ class BarangKeluar extends MY_Controller
         $this->BarangKeluar_model->update_jumlah_alat($barang_keluar->id_alat, $jumlah_keluar); // Tambah kembali jumllat
     
         $this->session->set_flashdata('delete', 'Data berhasil dihapus');
-        redirect('BarangKeluar');
+        redirect('BarangKeluaradmin');
     }
     public function get_merk()
     {
@@ -206,9 +206,9 @@ class BarangKeluar extends MY_Controller
     $data['barang_keluar'] = $this->BarangKeluar_model->get_barang_keluar_with_alat_by_date_and_unit($tanggal_awal, $tanggal_akhir, $id_unit);
 
     $this->load->view('layout/head');
-    $this->load->view('layout/header', $data);
-    $this->load->view('layout/sidebar');
-    $this->load->view('barang_keluar/surat_serah_terima', $data);
+    $this->load->view('layout/headeradmin', $data);
+    $this->load->view('layout/sidebaradmin');
+    $this->load->view('barang_keluar/surat_serah_terimaadmin', $data);
 }
 
 // public function cetak_surat_serah_terima()

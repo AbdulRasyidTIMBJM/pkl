@@ -94,13 +94,13 @@
     <div class="row">
         <div class="col-md-6">
             <h4>PIHAK PERTAMA</h4>
-            <p>Nama: </p>
-            <p>Jabatan: </p>
+            <p>Nama: <?= $nama_pihak_pertama ?></p>
+            <p>Jabatan: <?= $jabatan_pihak_pertama ?></p>
         </div>
         <div class="col-md-6">
             <h4>PIHAK KEDUA</h4>
-            <p>Nama: </p>
-            <p>Jabatan: </p>
+            <p>Nama: <?= $nama_pihak_kedua ?></p>
+            <p>Jabatan: <?= $jabatan_pihak_kedua ?></p>
         </div>
     </div>
     <p>PIHAK PERTAMA adalah UNIT yang menyerahkan barang ke Unit CSSD dan unit CSSD adalah sebagai PIHAK KEDUA.</p>
@@ -138,6 +138,7 @@
             <br><br>
             <br><br>
             <p>(.............................................)</p>
+            <P><?= $nama_pihak_kedua ?></P>
         </div>
         <div>
             <p>Penyerah,</p>
@@ -145,6 +146,7 @@
             <br><br>
             <br><br>
             <p>(.............................................)</p>
+            <P><?= $nama_pihak_pertama ?></P>
         </div>
     </div>
 </body>

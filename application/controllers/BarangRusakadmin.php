@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class BarangRusak extends MY_Controller
+class BarangRusakadmin extends MY_Controller
 {
     public function __construct()
     {
@@ -27,9 +27,9 @@ class BarangRusak extends MY_Controller
         $data['unit'] = $this->BarangRusak_model->get_all_unit();
         $data['title'] = 'Data Barang Rusak';
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
-        $this->load->view('barang_rusak/index', $data); // Memuat view dan mengirimkan data
+        $this->load->view('layout/headeradmin', $data);
+        $this->load->view('layout/sidebaradmin');
+        $this->load->view('barang_rusak/indexadmin', $data); // Memuat view dan mengirimkan data
     }
 
     public function create()
@@ -38,9 +38,9 @@ class BarangRusak extends MY_Controller
         $data['alat_medis'] = $this->BarangRusak_model->get_all_alat_medis(); // Ambil semua alat medis untuk dropdown
         $data['unit'] = $this->BarangRusak_model->get_all_unit();
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
-        $this->load->view('barang_rusak/create', $data);
+        $this->load->view('layout/headeradmin', $data);
+        $this->load->view('layout/sidebaradmin');
+        $this->load->view('barang_rusak/createadmin', $data);
     }
 
     public function edit($id_barang_rusak)
@@ -52,9 +52,9 @@ class BarangRusak extends MY_Controller
         $data['unit'] = $this->BarangRusak_model->get_all_unit();
         $data['title'] = 'Edit Barang Rusak';
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
-        $this->load->view('barang_rusak/edit', $data);
+        $this->load->view('layout/headeradmin', $data);
+        $this->load->view('layout/sidebaradmin');
+        $this->load->view('barang_rusak/editadmin', $data);
     }
     public function store()
 {
@@ -66,7 +66,7 @@ class BarangRusak extends MY_Controller
 
     if ($this->form_validation->run() == FALSE) {
         $this->session->set_flashdata('error', validation_errors());
-        redirect('BarangRusak/create');
+        redirect('BarangRusakadmin/create');
     } else {
         $id_alat = $this->input->post('id_alat');
         $jumlah_rusak = $this->input->post('jumlah_rusak');
@@ -76,7 +76,7 @@ class BarangRusak extends MY_Controller
 
         if ($jumlah_rusak > $jumlah_tersedia) {
             $this->session->set_flashdata('error', 'Jumlah keluar melebihi jumlah yang tersedia');
-            redirect('BarangRusak/create');
+            redirect('BarangRusakadmin/create');
         }
         $data = [
             'id_alat' => $id_alat,
@@ -108,7 +108,7 @@ class BarangRusak extends MY_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', validation_errors());
-            redirect('BarangRusak/edit/' . $id_barang_rusak);
+            redirect('BarangRusakadmin/edit/' . $id_barang_rusak);
         } else {
             // Ambil data Barang Rusak yang ada
             $barang_rusak = $this->BarangRusak_model->select_by_id('barang_rusak', $id_barang_rusak);
@@ -125,7 +125,7 @@ class BarangRusak extends MY_Controller
 
             if ($selisih > $jumlah_tersedia) {
                 $this->session->set_flashdata('error', 'Jumlah keluar melebihi jumlah yang tersedia');
-                redirect('BarangRusak/edit/' . $id_barang_rusak);
+                redirect('BarangRusakadmin/edit/' . $id_barang_rusak);
             }
             $data = array(
                 'id_alat' => $id_alat,
@@ -161,9 +161,9 @@ class BarangRusak extends MY_Controller
         $data['title'] = 'Cetak Data Barang Rusak';
 
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
-        $this->load->view('barang_rusak/reprint', $data);
+        $this->load->view('layout/headeradmin', $data);
+        $this->load->view('layout/sidebaradmin');
+        $this->load->view('barang_rusak/reprintadmin', $data);
         $this->load->view('layout/footer');
     }
 
@@ -201,9 +201,9 @@ class BarangRusak extends MY_Controller
     $data['barang_rusak'] = $this->BarangRusak_model->get_barang_rusak_with_alat_by_date_and_unit($tanggal_awal, $tanggal_akhir, $id_unit);
 
     $this->load->view('layout/head');
-    $this->load->view('layout/header', $data);
-    $this->load->view('layout/sidebar');
-    $this->load->view('barang_rusak/surat_serah_terima', $data);
+    $this->load->view('layout/headeradmin', $data);
+    $this->load->view('layout/sidebaradmin');
+    $this->load->view('barang_rusak/surat_serah_terimaadmin', $data);
 }
 
 public function get_barang_rusak_by_filter()
@@ -218,16 +218,6 @@ public function get_barang_rusak_by_filter()
 public function cetak_surat_serah_terima()
 {
     $idBarangRusak = $this->input->get('id_barang_rusak');
-    $namaPihakPertama = $this->input->get('nama_pihak_pertama');
-    $jabatanPihakPertama = $this->input->get('jabatan_pihak_pertama');
-    $namaPihakKedua = $this->input->get('nama_pihak_kedua');
-    $jabatanPihakKedua = $this->input->get('jabatan_pihak_kedua');
-
-    // $data['barang_rusak'] = $this->BarangRusak_model->get_barang_rusak_by_id($idBarangRusak);
-    $data['nama_pihak_pertama'] = $namaPihakPertama;
-    $data['jabatan_pihak_pertama'] = $jabatanPihakPertama;
-    $data['nama_pihak_kedua'] = $namaPihakKedua;
-    $data['jabatan_pihak_kedua'] = $jabatanPihakKedua;
     $data['barang_rusak'] = $this->BarangRusak_model->get_barang_rusak_with_alat_by_id($idBarangRusak);
     $this->load->view('barang_rusak/cetak_surat_serah_terima', $data);
 }

@@ -1,7 +1,7 @@
 <div class="content-wrapper">
     <div class="container">
         <h2><?= $title; ?></h2>
-        <form action="<?= base_url('BarangMasuk/store_surat'); ?>" method="POST">
+        <form action="<?= base_url('BarangMasukadmin/store_surat'); ?>" method="POST">
             <div class="form-group">
                 <label for="id_alat">Nama Alat</label>
                 <select name="id_alat" class="form-control" required>
@@ -34,7 +34,7 @@
                 <p>Proses Pemesanan</p>
             </div>
             <button type="submit" class="btn btn-success">Simpan</button>
-            <a href="<?= base_url('BarangMasuk/indexbaru'); ?>" class="btn btn-secondary">Kembali</a>
+            <a href="<?= base_url('BarangMasukadmin/indexbaru'); ?>" class="btn btn-secondary">Kembali</a>
         </form>
     </div>
 </div>

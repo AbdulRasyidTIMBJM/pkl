@@ -1,6 +1,6 @@
 <main class="content-wrapper">
     <div class="container">
-        <h2>Surat Serah Terima Barang Keluar</h2>
+        <h2>Surat Serah Terima Barang Rusak</h2>
         <div class="row">
             <div class="col-md-6">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal">Filter Data</button>
@@ -13,25 +13,24 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Tanggal Keluar</th>
+                    <th>Tanggal Rusak</th>
                     <th>Nama Alat</th>
                     <th>Merk</th>
-                    <th>Jumlah</th>
-                    <th>Nama Pengguna</th>
                     <th>Nama Unit</th>
+                    <th>Keterangan</th>
                 </tr>
             </thead>
-            <tbody id="dataBarangKeluar">
-                <?php $no = 1; foreach ($barang_keluar as $bk) : ?>
+            <tbody id="dataBarangRusakadmin">
+                <?php $no = 1;
+                foreach ($barang_rusak as $bk): ?>
                     <tr>
                         <td><?= $no++ ?></td>
-                        <td><?= date('d-m-Y', strtotime($bk->tanggal_keluar)) ?></td>
+                        <td><?= date('d-m-Y', strtotime($bk->tanggal_rusak)) ?></td>
                         <td><?= $bk->nama_alat ?></td>
                         <td><?= $bk->merk ?></td>
-                        <td><?= $bk->jumlah_keluar?></td>
-                        <td><?= $bk->nama ?></td>
                         <td><?= $bk->nama_unit ?></td>
-                        <td><input type="checkbox" name="id_barang_keluar[]" value="<?= $bk->id_barang_keluar ?>"></td>
+                        <td class="small-text"><?php echo $bk->alasan; ?></td>
+                        <td><input type="checkbox" name="id_barang_rusak[]" value="<?= $bk->id_barang_rusak ?>"></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -62,7 +61,7 @@
                             <label>Unit</label>
                             <select name="id_unit" class="form-control">
                                 <option value="">Semua Unit</option>
-                                <?php foreach ($this->BarangKeluar_model->get_all_unit() as $unit) : ?>
+                                <?php foreach ($this->BarangRusakadmin_model->get_all_unit() as $unit) : ?>
                                     <option value="<?= $unit->id_unit ?>"><?= $unit->nama_unit ?></option>
                                 <?php endforeach; ?>
                             </select>
@@ -73,7 +72,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal Konfirmasi Sebelum Cetak -->
+
     <div class="modal fade" id="konfirmasiCetakModal" tabindex="-1" role="dialog" aria-labelledby="konfirmasiCetakModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -108,7 +107,7 @@
         </div>
     </div>
 </main>
-
+<!-- Footer -->
 <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
         <b>Version</b> 3.2.0
@@ -117,9 +116,8 @@
 </footer>
 <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-</aside>
-<!-- jQuery -->
+<!-- ./wrapper -->
+
 <script src="<?= base_url('assets/plugins/jquery/jquery.min.js'); ?>"></script>
 <!-- AdminLTE App -->
 <script src="<?= base_url('assets/dist/js/adminlte.min.js'); ?>"></script>
@@ -155,14 +153,14 @@
             var idUnit = $('select[name="id_unit"]').val();
             $.ajax({
                 type: 'GET',
-                url: '<?= base_url('BarangKeluar/get_barang_keluar_by_filter') ?>',
+                url: '<?= base_url('BarangRusakadmin/get_barang_rusak_by_filter') ?>',
                 data: {
                     tanggal_awal: tanggalAwal,
                     tanggal_akhir: tanggalAkhir,
                     id_unit: idUnit
                 },
                 success: function(data) {
-                    $('#dataBarangKeluar').html(data);
+                    $('#dataBarangRusakadmin').html(data);
                 }
             });
         });
@@ -174,13 +172,12 @@
             var jabatanPihakPertama = $('input[name="jabatan_pihak_pertama"]').val();
             var namaPihakKedua = $('input[name="nama_pihak_kedua"]').val();
             var jabatanPihakKedua = $('input[name="jabatan_pihak_kedua"]').val();
-            var idBarangKeluar = [];
-            $('input[name="id_barang_keluar[]"]:checked').each(function() {
-                idBarangKeluar.push($(this).val());
+            var idBarangRusak = [];
+            $('input[name="id_barang_rusak[]"]:checked').each(function() {
+                idBarangRusak.push($(this).val());
             });
-            window.location.href = '<?= base_url('BarangKeluar/cetak_surat_serah_terima') ?>?id_barang_keluar=' + idBarangKeluar.join(',') + '&nama_pihak_pertama=' + namaPihakPertama + '&jabatan_pihak_pertama=' + jabatanPihakPertama + '&nama_pihak_kedua=' + namaPihakKedua + '&jabatan_pihak_kedua=' + jabatanPihakKedua;
-        }); 
-
+            window.location.href = '<?= base_url('BarangRusakadmin/cetak_surat_serah_terima') ?>?id_barang_rusak=' + idBarangRusak.join(',') + '&nama_pihak_pertama=' + namaPihakPertama + '&jabatan_pihak_pertama=' + jabatanPihakPertama + '&nama_pihak_kedua=' + namaPihakKedua + '&jabatan_pihak_kedua=' + jabatanPihakKedua;
+        });
         $("#example1").DataTable({
             "responsive": false,
             "lengthChange": true,
@@ -196,7 +193,7 @@
             "info": true,
             "columnDefs": [{
                 "orderable": false,
-                "targets": 7
+                "targets": 6
             }],
             "dom": '<"row"<"col-md-4"l><"col-md-4 text-center"><"col-md-4 text-right"f>>rtip',
         });

@@ -92,17 +92,17 @@
 
     <h2 style="text-align: center;">Surat Serah Terima Barang Keluar</h2>
     <div class="row">
-        <div class="col-md-6">
-            <h4>PIHAK PERTAMA</h4>
-            <p>Nama: </p>
-            <p>Jabatan: </p>
-        </div>
-        <div class="col-md-6">
-            <h4>PIHAK KEDUA</h4>
-            <p>Nama: </p>
-            <p>Jabatan: </p>
-        </div>
+    <div class="col-md-6">
+        <h4>PIHAK PERTAMA</h4>
+        <p>Nama: <?= $nama_pihak_pertama ?></p>
+        <p>Jabatan: <?= $jabatan_pihak_pertama ?></p>
     </div>
+    <div class="col-md-6">
+        <h4>PIHAK KEDUA</h4>
+        <p>Nama: <?= $nama_pihak_kedua ?></p>
+        <p>Jabatan: <?= $jabatan_pihak_kedua ?></p>
+    </div>
+</div>
     <p>PIHAK PERTAMA adalah unit CSSD yang menyerahkan barang ke PIHAK KEDUA sebagai UNIT yang Memerlukan Barang.</p>
 
     <table>
@@ -137,6 +137,7 @@
             <br><br>
             <br><br>
             <p>(.............................................)</p>
+            <p><?= $nama_pihak_kedua ?></p>
         </div>
         <div>
             <p>Penyerah,</p>
@@ -144,6 +145,7 @@
             <br><br>
             <br><br>
             <p>(.............................................)</p>
+            <p><?= $nama_pihak_pertama ?></p>
         </div>
     </div>
 </body>

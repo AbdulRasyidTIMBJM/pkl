@@ -28,7 +28,7 @@ class Login extends CI_Controller
                 $this->session->set_flashdata('pesan', 'Berhasil login sebagai Admin');
                 redirect('admin');
             } else {
-                $this->session->set_flashdata('pesan', 'Berhasil login sebagai User');
+                $this->session->set_flashdata('pesan', 'Berhasil login sebagai Staff');
                 redirect('user');
             }
         } else {

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class BarangMasuk extends MY_Controller
+class BarangMasukadmin extends MY_Controller
 {
     public function __construct()
     {
@@ -28,9 +28,9 @@ class BarangMasuk extends MY_Controller
         $data['barang_masuk'] = $this->BarangMasuk_model->get_barang_masuk_with_alat($bulan, $tahun, $tanggal_awal, $tanggal_akhir); // Mengambil data barang masuk dengan nama alat
         $data['title'] = 'Data Barang Masuk Lama';
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
-        $this->load->view('barang_masuk/index', $data); // Memuat view dan mengirimkan data
+        $this->load->view('layout/headeradmin', $data);
+        $this->load->view('layout/sidebaradmin');
+        $this->load->view('barang_masuk/indexadmin', $data); // Memuat view dan mengirimkan data
     }
     public function indexbaru()
     {
@@ -54,9 +54,9 @@ class BarangMasuk extends MY_Controller
         $this->load->model('BarangMasuk_model'); // Memuat model 
         $data['title'] = 'Data Barang Masuk Baru';
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
-        $this->load->view('barang_masuk/indexbaru', $data); // Memuat view dan mengirimkan data
+        $this->load->view('layout/headeradmin', $data);
+        $this->load->view('layout/sidebaradmin');
+        $this->load->view('barang_masuk/indexbaruadmin', $data); // Memuat view dan mengirimkan data
     }
 
     public function create()
@@ -65,9 +65,9 @@ class BarangMasuk extends MY_Controller
         $data['alat_medis'] = $this->BarangMasuk_model->get_all_alat_medis(); // Ambil semua alat medis untuk dropdown
         $data['unit'] = $this->BarangMasuk_model->get_all_unit();
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
-        $this->load->view('barang_masuk/create', $data);
+        $this->load->view('layout/headeradmin', $data);
+        $this->load->view('layout/sidebaradmin');
+        $this->load->view('barang_masuk/createadmin', $data);
     }
     public function createbaru()
     {
@@ -75,9 +75,9 @@ class BarangMasuk extends MY_Controller
         $data['alat_medis'] = $this->BarangMasuk_model->get_all_alat_medis(); // Ambil semua alat medis untuk dropdown
         $data['supplier'] = $this->BarangMasuk_model->get_all_supplier();
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
-        $this->load->view('barang_masuk/createbaru', $data);
+        $this->load->view('layout/headeradmin', $data);
+        $this->load->view('layout/sidebaradmin');
+        $this->load->view('barang_masuk/createbaruadmin', $data);
     }
 
     public function edit($id_barang_masuk)
@@ -89,9 +89,9 @@ class BarangMasuk extends MY_Controller
         $data['unit'] = $this->BarangMasuk_model->get_all_unit();
         $data['title'] = 'Edit Barang Masuk';
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
-        $this->load->view('barang_masuk/edit', $data);
+        $this->load->view('layout/headeradmin', $data);
+        $this->load->view('layout/sidebaradmin');
+        $this->load->view('barang_masuk/editadmin', $data);
     }
     public function editbaru($id_barang_masuk)
     {
@@ -102,9 +102,9 @@ class BarangMasuk extends MY_Controller
         $data['supplier'] = $this->BarangMasuk_model->get_all_supplier();
         $data['title'] = 'Edit Barang Masuk';
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
-        $this->load->view('barang_masuk/editbaru', $data);
+        $this->load->view('layout/headeradmin', $data);
+        $this->load->view('layout/sidebaradmin');
+        $this->load->view('barang_masuk/editbaruadmin', $data);
     }
     public function store()
     {
@@ -116,7 +116,7 @@ class BarangMasuk extends MY_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', validation_errors());
-            redirect('BarangMasuk/create/');
+            redirect('BarangMasukadmin/create/');
         } else {
             $data = [
                 'id_alat' => $this->input->post('id_alat'),
@@ -139,7 +139,7 @@ class BarangMasuk extends MY_Controller
             $this->BarangMasuk_model->update_jumlah_alat($id_alat, $jumlah_masuk);
 
             $this->session->set_flashdata('success', 'Data Berhasil Disimpan');
-            redirect('BarangMasuk');
+            redirect('BarangMasukadmin');
         }
     }
     public function storebaru()
@@ -152,7 +152,7 @@ class BarangMasuk extends MY_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', validation_errors());
-            redirect('BarangMasuk/createbaru/');
+            redirect('BarangMasukadmin/createbaru/');
         } else {
             $data = [
                 'id_alat' => $this->input->post('id_alat'),
@@ -174,7 +174,7 @@ class BarangMasuk extends MY_Controller
             $this->BarangMasuk_model->update_jumlah_alat($id_alat, $jumlah_masuk);
 
             $this->session->set_flashdata('success', 'Data Berhasil Disimpan');
-            redirect('BarangMasuk/indexbaru');
+            redirect('BarangMasukadmin/indexbaru');
         }
     }
 
@@ -187,7 +187,7 @@ class BarangMasuk extends MY_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', validation_errors());
-            redirect('BarangMasuk/edit/' . $id_barang_masuk);
+            redirect('BarangMasukadmin/edit/' . $id_barang_masuk);
         } else {
             // Ambil data barang masuk yang ada
             $barang_masuk = $this->BarangMasuk_model->select_by_id('barang_masuk', $id_barang_masuk);
@@ -213,7 +213,7 @@ class BarangMasuk extends MY_Controller
 
             $this->BarangMasuk_model->update($id_barang_masuk, $data);
             $this->session->set_flashdata('success', 'Data Berhasil Diupdate');
-            redirect('BarangMasuk');
+            redirect('BarangMasukadmin');
         }
     }
     public function updatebaru($id_barang_masuk)
@@ -225,7 +225,7 @@ class BarangMasuk extends MY_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', validation_errors());
-            redirect('BarangMasuk/editbaru/' . $id_barang_masuk);
+            redirect('BarangMasukadmin/editbaru/' . $id_barang_masuk);
         } else {
             // Ambil data barang masuk yang ada
             $barang_masuk = $this->BarangMasuk_model->select_by_id('barang_masuk', $id_barang_masuk);
@@ -250,7 +250,7 @@ class BarangMasuk extends MY_Controller
 
             $this->BarangMasuk_model->update($id_barang_masuk, $data);
             $this->session->set_flashdata('success', 'Data Berhasil Diupdate');
-            redirect('BarangMasuk/indexbaru');
+            redirect('BarangMasukadmin/indexbaru');
         }
     }
     public function print()
@@ -269,9 +269,9 @@ class BarangMasuk extends MY_Controller
         $data['title'] = 'Cetak Data Barang Masuk';
 
         $this->load->view('layout/head');
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
-        $this->load->view('barang_masuk/reprint', $data);
+        $this->load->view('layout/headeradmin', $data);
+        $this->load->view('layout/sidebaradmin');
+        $this->load->view('barang_masuk/reprintadmin', $data);
         $this->load->view('layout/footer');
     }
     public function delete($id)
@@ -288,7 +288,7 @@ class BarangMasuk extends MY_Controller
         $this->BarangMasuk_model->update_jumlah_alat($id_alat, -$jumlah_masuk); // Kurangi jumlah alat
 
         $this->session->set_flashdata('delete', 'Data Berhasil Dihapus');
-        redirect('BarangMasuk');
+        redirect('BarangMasukadmin');
     }
     public function get_merk()
     {
@@ -309,8 +309,8 @@ class BarangMasuk extends MY_Controller
     //     $data['barang_masuk'] = $this->BarangMasuk_model->get_barang_masuk_with_alat_by_date_and_supplier($tanggal_awal, $tanggal_akhir, $id_supplier);
     
     //     $this->load->view('layout/head');
-    //     $this->load->view('layout/header', $data);
-    //     $this->load->view('layout/sidebar');
+    //     $this->load->view('layout/headeradmin', $data);
+    //     $this->load->view('layout/admin');
     //     $this->load->view('barang_masuk/indexbaru', $data);
     // }
 
@@ -341,9 +341,10 @@ class BarangMasuk extends MY_Controller
     $this->load->model('BarangMasuk_model'); // Memuat model
     $data['barang_masuk'] = $this->BarangMasuk_model->get_barang_masuk_with_alatbaru($bulan, $tahun, $tanggal_awal, $tanggal_akhir);  
     $this->load->view('layout/head');
-    $this->load->view('layout/header', $data);
-    $this->load->view('layout/sidebar');
-    $this->load->view('barang_masuk/surat', $data);
+    $this->load->view('layout/headeradmin', $data);
+    $this->load->view('layout/sidebaradmin');
+    $this->load->view('barang_masuk/suratadmin', $data);
+    $this->load->view('layout/footer');
 }
 
 public function create_surat() {
@@ -351,9 +352,9 @@ public function create_surat() {
     $data['alat_medis'] = $this->BarangMasuk_model->get_all_alat_medis(); // Ambil semua alat medis untuk dropdown
     $data['supplier'] = $this->BarangMasuk_model->get_all_supplier(); // Ambil semua supplier untuk dropdown
     $this->load->view('layout/head');
-    $this->load->view('layout/header', $data);
-    $this->load->view('layout/sidebar');
-    $this->load->view('barang_masuk/create_surat', $data);
+    $this->load->view('layout/headeradmin', $data);
+    $this->load->view('layout/sideadmin');
+    $this->load->view('barang_masuk/create_suratadmin', $data);
     $this->load->view('layout/footer');
 }
 public function store_surat() {
@@ -365,7 +366,7 @@ public function store_surat() {
 
     if ($this->form_validation->run() == FALSE) {
         $this->session->set_flashdata('error', validation_errors());
-        redirect('BarangMasuk/create_surat');
+        redirect('BarangMasukadmin/create_surat');
     } else {
         $data = [
             'id_alat' => $this->input->post('id_alat'),
@@ -379,7 +380,7 @@ public function store_surat() {
         // Simpan data barang masuk
         $this->BarangMasuk_model->insert_barang_masuk($data);
         $this->session->set_flashdata('success', 'Data Berhasil Disimpan');
-        redirect('BarangMasuk/surat');
+        redirect('BarangMasukadmin/surat');
     }
 }
 public function edit_surat($id_barang_masuk) {
@@ -392,13 +393,13 @@ public function edit_surat($id_barang_masuk) {
     // Pastikan data ditemukan
     if (!$data['barang_masuk']) {
         $this->session->set_flashdata('error', 'Data tidak ditemukan');
-        redirect('BarangMasuk/surat');
+        redirect('BarangMasukadmin/surat');
     }
 
     $this->load->view('layout/head');
-    $this->load->view('layout/header', $data);
-    $this->load->view('layout/sidebar');
-    $this->load->view('barang_masuk/edit_surat', $data);
+    $this->load->view('layout/headeradmin', $data);
+    $this->load->view('layout/sidebaradmin');
+    $this->load->view('barang_masuk/edit_suratadmin', $data);
     $this->load->view('layout/footer');
 }
 public function update_surat($id_barang_masuk) {
@@ -410,7 +411,7 @@ public function update_surat($id_barang_masuk) {
 
     if ($this->form_validation->run() == FALSE) {
         $this->session->set_flashdata('error', validation_errors());
-        redirect('BarangMasuk/edit_surat/' . $id_barang_masuk);
+        redirect('BarangMasukadmin/edit_surat/' . $id_barang_masuk);
     } else {
         // Ambil data barang masuk yang ada
         $barang_masuk = $this->BarangMasuk_model->select_by_id('barang_masuk', $id_barang_masuk);
@@ -443,7 +444,7 @@ public function update_surat($id_barang_masuk) {
         // Update data barang masuk
         $this->BarangMasuk_model->update($id_barang_masuk, $data);
         $this->session->set_flashdata('success', 'Data Berhasil Diupdate');
-        redirect('BarangMasuk/surat');
+        redirect('BarangMasukadmin/surat');
     }
 }
 }

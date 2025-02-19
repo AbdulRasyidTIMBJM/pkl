@@ -114,8 +114,8 @@ class BarangRusak_model extends CI_Model
     $this->db->join('unit', 'unit.id_unit = barang_rusak.id_unit');
 
     if ($tanggalAwal && $tanggalAkhir) {
-        $this->db->where('tanggal_keluar >=', $tanggalAwal);
-        $this->db->where('tanggal_keluar <=', $tanggalAkhir);
+        $this->db->where('tanggal_rusak >=', $tanggalAwal);
+        $this->db->where('tanggal_rusak <=', $tanggalAkhir);
     }
     if ($idUnit) {
         $this->db->where('barang_rusak.id_unit', $idUnit);

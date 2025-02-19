@@ -27,7 +27,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="GET" action="<?php echo site_url('BarangRusak/index'); ?>">
+                        <form method="GET" action="<?php echo site_url('BarangRusakadmin/index'); ?>">
                             <div class="form-group">
                                 <label for="bulan">Bulan</label>
                                 <select name="bulan" class="form-control" id="bulan">
@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <a href="<?php echo site_url('BarangRusak/create'); ?>" class="btn btn-sm btn-success mr-2"><i class="fas fa-plus"></i> Tambah Data</a>
+        <a href="<?php echo site_url('BarangRusakadmin/create'); ?>" class="btn btn-sm btn-success mr-2"><i class="fas fa-plus"></i> Tambah Data</a>
         <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -85,8 +85,8 @@
                         <td><?php echo $br->jumlah_rusak; ?></td>
                         <td class="small-text"><?php echo $br->alasan; ?></td>
                         <td>
-                            <a href="<?= base_url('BarangRusak/edit/' . $br->id_barang_rusak) ?>" class="btn btn-sm mt-2 btn-primary">Edit</a>
-                            <a href="<?= base_url('BarangRusak/delete/' . $br->id_barang_rusak) ?>" class="btn btn-sm mt-2 btn-danger" onclick="return confirm('Yakin ingin menghapus data?')">Hapus</a>
+                            <a href="<?= base_url('BarangRusakadmin/edit/' . $br->id_barang_rusak) ?>" class="btn btn-sm mt-2 btn-primary">Edit</a>
+                            <a href="<?= base_url('BarangRusakadmin/delete/' . $br->id_barang_rusak) ?>" class="btn btn-sm mt-2 btn-danger" onclick="return confirm('Yakin ingin menghapus data?')">Hapus</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -208,7 +208,7 @@
                     },
                     action: function(e, dt, button, config) {
                         // Ganti URL dengan URL halaman print Anda
-                        window.open('<?php echo site_url('BarangRusak/reprint'); ?>', '_blank');
+                        window.open('<?php echo site_url('BarangRusakadmin/reprint'); ?>', '_blank');
                     },
                     className: 'btn btn-sm btn-success mr-2 mt-2'
                 }
